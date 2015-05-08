@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "UIViewController+Record.h"
 
+#define VO_DEBUG 1
+
 UIKIT_EXTERN NSString const *VOVCName;
 UIKIT_EXTERN NSString const *VOVCController;
 UIKIT_EXTERN NSString const *VOVCStoryboard;
@@ -72,10 +74,10 @@ typedef NS_ENUM(NSUInteger, VVMShowMode) {
  *
  *  @return 页面对象
  */
-- (UIViewController *)viewController:(NSString *)aController storyboard:(NSString *)aStoryboard;
+- (UIViewController *)viewController:(NSString *)aController storyboard:(NSString *)aStoryboard  NS_AVAILABLE_IOS(5_0);
 
 /**
- *  从storyboard生成页面
+ *  从xib,storyboard或者代码生成页面
  *
  *  @param aController 目标页面,请在storyboard中设置和class名相同的storyboard id
  *  @param aStoryboard 目标页面所在的storyboard
@@ -83,7 +85,7 @@ typedef NS_ENUM(NSUInteger, VVMShowMode) {
  *
  *  @return 页面对象
  */
-- (UIViewController *)viewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams;
+- (UIViewController *)viewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams  NS_AVAILABLE_IOS(5_0);
 
 
 #pragma mark - 页面跳转,Push
@@ -93,7 +95,7 @@ typedef NS_ENUM(NSUInteger, VVMShowMode) {
  *  @param aController 目标页面,请在storyboard中设置和class名相同的storyboard id
  *  @param aStoryboard 目标页面所在的storyboard
  */
-- (void)pushController:(NSString *)aController storyboard:(NSString *)aStoryboard;
+- (void)pushController:(NSString *)aController storyboard:(NSString *)aStoryboard  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  页面跳转,默认有push动画
@@ -102,16 +104,16 @@ typedef NS_ENUM(NSUInteger, VVMShowMode) {
  *  @param aStoryboard 目标页面所在的storyboard
  *  @param aParams     页面参数,aParams的每个key和viewController的属性对应(通过key-value方式设置)
  */
-- (void)pushController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams;
+- (void)pushController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams  NS_AVAILABLE_IOS(5_0);
 
 /**
- *  页面跳转,默认参数
+ *  页面跳转,默认无参数
  *
  *  @param aController 目标页面,请在storyboard中设置和class名相同的storyboard id
  *  @param aStoryboard 目标页面所在的storyboard
  *  @param animated    是否动画
  */
-- (void)pushController:(NSString *)aController storyboard:(NSString *)aStoryboard animated:(BOOL)animated;
+- (void)pushController:(NSString *)aController storyboard:(NSString *)aStoryboard animated:(BOOL)animated  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  页面跳转
@@ -121,10 +123,28 @@ typedef NS_ENUM(NSUInteger, VVMShowMode) {
  *  @param aParams     页面参数,aParams的每个key和viewController的属性对应(通过key-value方式设置)
  *  @param animated    是否动画
  */
-- (void)pushController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams animated:(BOOL)animated;
+- (void)pushController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams animated:(BOOL)animated  NS_AVAILABLE_IOS(5_0);
 
 
 #pragma mark - 页面出栈
+/**
+ *  页面弹出
+ *
+ *  @param animated 是否有动画
+ *
+ *  @return 被弹出的页面
+ */
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated  NS_AVAILABLE_IOS(5_0);
+
+/**
+ *  弹出到根页面
+ *
+ *  @param animated 是否动画
+ *
+ *  @return 出栈后的页面数组
+ */
+- (NSArray *)popToRootViewControllerAnimated:(BOOL)animated  NS_AVAILABLE_IOS(5_0);
+
 /**
  *  页面弹出，默认无参数，默认有动画
  *
@@ -133,7 +153,7 @@ typedef NS_ENUM(NSUInteger, VVMShowMode) {
  *
  *  @return 出栈页面数组
  */
-- (NSArray *)popToViewController:(NSString *)aController storyboard:(NSString *)aStoryboard;
+- (NSArray *)popToViewController:(NSString *)aController storyboard:(NSString *)aStoryboard  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  页面弹出，默认有动画
@@ -144,7 +164,7 @@ typedef NS_ENUM(NSUInteger, VVMShowMode) {
  *
  *  @return 出栈页面数组
  */
-- (NSArray *)popToViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams;
+- (NSArray *)popToViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  页面弹出
@@ -156,7 +176,7 @@ typedef NS_ENUM(NSUInteger, VVMShowMode) {
  *
  *  @return 出栈页面数组
  */
-- (NSArray *)popToViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams animated:(BOOL)animated;
+- (NSArray *)popToViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams animated:(BOOL)animated  NS_AVAILABLE_IOS(5_0);
 
 #pragma mark - 页面显示,present
 /**
@@ -165,7 +185,7 @@ typedef NS_ENUM(NSUInteger, VVMShowMode) {
  *  @param aController 目标页面,请在storyboard中设置和class名相同的storyboard id
  *  @param aStoryboard 目标页面所在的storyboard
  */
-- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard;
+- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  弹出模态页面，默认生成新navigationController
@@ -174,7 +194,7 @@ typedef NS_ENUM(NSUInteger, VVMShowMode) {
  *  @param aStoryboard 目标页面所在的storyboard
  *  @param aParams     页面参数,aParams的每个key和viewController的属性对应(通过key-value方式设置)
  */
-- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams;
+- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  弹出模态页面
@@ -184,7 +204,7 @@ typedef NS_ENUM(NSUInteger, VVMShowMode) {
  *  @param aParams     页面参数,aParams的每个key和viewController的属性对应(通过key-value方式设置)
  *  @param inNavi      目标页面是否包含在UINavigationController中
  */
-- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams isInNavi:(BOOL)inNavi;
+- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams isInNavi:(BOOL)inNavi  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  弹出模态页面
@@ -195,7 +215,16 @@ typedef NS_ENUM(NSUInteger, VVMShowMode) {
  *  @param inNavi      目标页面是否包含在UINavigationController中
  *  @param completion  页面显示动画完成后的操作
  */
-- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams isInNavi:(BOOL)inNavi completion:(void (^)(void))completion;
+- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams isInNavi:(BOOL)inNavi completion:(void (^)(void))completion  NS_AVAILABLE_IOS(5_0);
+
+#pragma mark - 页面回收
+/**
+ *  回收当前页面
+ *
+ *  @param animated   是否有动画效果
+ *  @param completion 动画完成后的操作
+ */
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(void (^)(void))completion  NS_AVAILABLE_IOS(5_0);
 
 #pragma mark - 页面URL管理
 /**
@@ -231,6 +260,6 @@ typedef NS_ENUM(NSUInteger, VVMShowMode) {
  *
  *  @return 是否处理成功
  */
-- (BOOL)handleOpenURL:(NSURL *)url;
+- (BOOL)handleOpenURL:(NSURL *)url  NS_AVAILABLE_IOS(5_0);
 
 @end

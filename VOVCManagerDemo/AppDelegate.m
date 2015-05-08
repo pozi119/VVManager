@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "VOVCManager.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [VOVCManager sharedManager];
+    [self registerViewControllers];
     return YES;
 }
 
@@ -40,6 +43,45 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    return [[VOVCManager sharedManager] handleOpenURL:url];
+}
+
+- (void)registerViewControllers{
+    [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"favorite",
+                                                    VOVCController:@"VOFavoriteMainController",
+                                                    VOVCStoryboard:@"Main",
+                                                    VOVCShowType:@(VVMSHowPush)}];
+    [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"favoriteDetail",
+                                                    VOVCController:@"VOFavoriteDetailController",
+                                                    VOVCStoryboard:@"Main",
+                                                    VOVCShowType:@(VVMSHowPush)}];
+    [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"recents",
+                                                    VOVCController:@"VORecentsMainController",
+                                                    VOVCStoryboard:@"Main",
+                                                    VOVCShowType:@(VVMSHowPush)}];
+    [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"recentsDetail",
+                                                    VOVCController:@"VORecentsDetailController",
+                                                    VOVCStoryboard:@"Main",
+                                                    VOVCShowType:@(VVMSHowPush)}];
+    [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"bookmark",
+                                                    VOVCController:@"VOBookmarkMainController",
+                                                    VOVCStoryboard:@"Main",
+                                                    VOVCShowType:@(VVMSHowPush)}];
+    [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"bookmarkDetail",
+                                                    VOVCController:@"VOBookmarkDetailController",
+                                                    VOVCStoryboard:@"Main",
+                                                    VOVCShowType:@(VVMSHowPush)}];
+    [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"user",
+                                                    VOVCController:@"VOUserMainController",
+                                                    VOVCStoryboard:@"Main",
+                                                    VOVCShowType:@(VVMSHowPush)}];
+    [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"userDetail",
+                                                    VOVCController:@"VOUserDetailController",
+                                                    VOVCStoryboard:@"Main",
+                                                    VOVCShowType:@(VVMSHowPush)}];
 }
 
 @end

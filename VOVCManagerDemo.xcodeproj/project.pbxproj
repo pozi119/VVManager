@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3E14C8841AFBB0790067C3AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8831AFBB0790067C3AF /* main.m */; };
 		3E14C8871AFBB0790067C3AF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8861AFBB0790067C3AF /* AppDelegate.m */; };
-		3E14C88A1AFBB0790067C3AF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8891AFBB0790067C3AF /* ViewController.m */; };
 		3E14C88D1AFBB0790067C3AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E14C88B1AFBB0790067C3AF /* Main.storyboard */; };
 		3E14C88F1AFBB0790067C3AF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E14C88E1AFBB0790067C3AF /* Images.xcassets */; };
 		3E14C8921AFBB0790067C3AF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E14C8901AFBB0790067C3AF /* LaunchScreen.xib */; };
@@ -17,6 +16,14 @@
 		3E14C8AE1AFBB0C90067C3AF /* NSObject+Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8A91AFBB0C90067C3AF /* NSObject+Runtime.m */; };
 		3E14C8AF1AFBB0C90067C3AF /* UIViewController+Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8AB1AFBB0C90067C3AF /* UIViewController+Record.m */; };
 		3E14C8B01AFBB0C90067C3AF /* VOVCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8AD1AFBB0C90067C3AF /* VOVCManager.m */; };
+		3E14C8B31AFC754D0067C3AF /* VOFavoriteMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8B21AFC754D0067C3AF /* VOFavoriteMainController.m */; };
+		3E14C8B61AFC755D0067C3AF /* VOFavoriteDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8B51AFC755D0067C3AF /* VOFavoriteDetailController.m */; };
+		3E14C8B91AFC756D0067C3AF /* VORecentsMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8B81AFC756D0067C3AF /* VORecentsMainController.m */; };
+		3E14C8BC1AFC757C0067C3AF /* VORecentsDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8BB1AFC757C0067C3AF /* VORecentsDetailController.m */; };
+		3E14C8BF1AFC758A0067C3AF /* VOBookmarkMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8BE1AFC758A0067C3AF /* VOBookmarkMainController.m */; };
+		3E14C8C21AFC759B0067C3AF /* VOBookmarkDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8C11AFC759B0067C3AF /* VOBookmarkDetailController.m */; };
+		3E14C8C51AFC75AA0067C3AF /* VOUserMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8C41AFC75AA0067C3AF /* VOUserMainController.m */; };
+		3E14C8C81AFC75B90067C3AF /* VOUserDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8C71AFC75B90067C3AF /* VOUserDetailController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,8 +42,6 @@
 		3E14C8831AFBB0790067C3AF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3E14C8851AFBB0790067C3AF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3E14C8861AFBB0790067C3AF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		3E14C8881AFBB0790067C3AF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		3E14C8891AFBB0790067C3AF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		3E14C88C1AFBB0790067C3AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3E14C88E1AFBB0790067C3AF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3E14C8911AFBB0790067C3AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -49,6 +54,22 @@
 		3E14C8AB1AFBB0C90067C3AF /* UIViewController+Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Record.m"; sourceTree = "<group>"; };
 		3E14C8AC1AFBB0C90067C3AF /* VOVCManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOVCManager.h; sourceTree = "<group>"; };
 		3E14C8AD1AFBB0C90067C3AF /* VOVCManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VOVCManager.m; sourceTree = "<group>"; };
+		3E14C8B11AFC754D0067C3AF /* VOFavoriteMainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOFavoriteMainController.h; sourceTree = "<group>"; };
+		3E14C8B21AFC754D0067C3AF /* VOFavoriteMainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VOFavoriteMainController.m; sourceTree = "<group>"; };
+		3E14C8B41AFC755D0067C3AF /* VOFavoriteDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOFavoriteDetailController.h; sourceTree = "<group>"; };
+		3E14C8B51AFC755D0067C3AF /* VOFavoriteDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VOFavoriteDetailController.m; sourceTree = "<group>"; };
+		3E14C8B71AFC756D0067C3AF /* VORecentsMainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VORecentsMainController.h; sourceTree = "<group>"; };
+		3E14C8B81AFC756D0067C3AF /* VORecentsMainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VORecentsMainController.m; sourceTree = "<group>"; };
+		3E14C8BA1AFC757C0067C3AF /* VORecentsDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VORecentsDetailController.h; sourceTree = "<group>"; };
+		3E14C8BB1AFC757C0067C3AF /* VORecentsDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VORecentsDetailController.m; sourceTree = "<group>"; };
+		3E14C8BD1AFC758A0067C3AF /* VOBookmarkMainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOBookmarkMainController.h; sourceTree = "<group>"; };
+		3E14C8BE1AFC758A0067C3AF /* VOBookmarkMainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VOBookmarkMainController.m; sourceTree = "<group>"; };
+		3E14C8C01AFC759B0067C3AF /* VOBookmarkDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOBookmarkDetailController.h; sourceTree = "<group>"; };
+		3E14C8C11AFC759B0067C3AF /* VOBookmarkDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VOBookmarkDetailController.m; sourceTree = "<group>"; };
+		3E14C8C31AFC75AA0067C3AF /* VOUserMainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOUserMainController.h; sourceTree = "<group>"; };
+		3E14C8C41AFC75AA0067C3AF /* VOUserMainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VOUserMainController.m; sourceTree = "<group>"; };
+		3E14C8C61AFC75B90067C3AF /* VOUserDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOUserDetailController.h; sourceTree = "<group>"; };
+		3E14C8C71AFC75B90067C3AF /* VOUserDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VOUserDetailController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,8 +114,22 @@
 				3E14C8A71AFBB0C90067C3AF /* VOVCManager */,
 				3E14C8851AFBB0790067C3AF /* AppDelegate.h */,
 				3E14C8861AFBB0790067C3AF /* AppDelegate.m */,
-				3E14C8881AFBB0790067C3AF /* ViewController.h */,
-				3E14C8891AFBB0790067C3AF /* ViewController.m */,
+				3E14C8B11AFC754D0067C3AF /* VOFavoriteMainController.h */,
+				3E14C8B21AFC754D0067C3AF /* VOFavoriteMainController.m */,
+				3E14C8B41AFC755D0067C3AF /* VOFavoriteDetailController.h */,
+				3E14C8B51AFC755D0067C3AF /* VOFavoriteDetailController.m */,
+				3E14C8B71AFC756D0067C3AF /* VORecentsMainController.h */,
+				3E14C8B81AFC756D0067C3AF /* VORecentsMainController.m */,
+				3E14C8BA1AFC757C0067C3AF /* VORecentsDetailController.h */,
+				3E14C8BB1AFC757C0067C3AF /* VORecentsDetailController.m */,
+				3E14C8BD1AFC758A0067C3AF /* VOBookmarkMainController.h */,
+				3E14C8BE1AFC758A0067C3AF /* VOBookmarkMainController.m */,
+				3E14C8C01AFC759B0067C3AF /* VOBookmarkDetailController.h */,
+				3E14C8C11AFC759B0067C3AF /* VOBookmarkDetailController.m */,
+				3E14C8C31AFC75AA0067C3AF /* VOUserMainController.h */,
+				3E14C8C41AFC75AA0067C3AF /* VOUserMainController.m */,
+				3E14C8C61AFC75B90067C3AF /* VOUserDetailController.h */,
+				3E14C8C71AFC75B90067C3AF /* VOUserDetailController.m */,
 				3E14C88B1AFBB0790067C3AF /* Main.storyboard */,
 				3E14C88E1AFBB0790067C3AF /* Images.xcassets */,
 				3E14C8901AFBB0790067C3AF /* LaunchScreen.xib */,
@@ -243,11 +278,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E14C8AE1AFBB0C90067C3AF /* NSObject+Runtime.m in Sources */,
-				3E14C88A1AFBB0790067C3AF /* ViewController.m in Sources */,
+				3E14C8B31AFC754D0067C3AF /* VOFavoriteMainController.m in Sources */,
+				3E14C8BC1AFC757C0067C3AF /* VORecentsDetailController.m in Sources */,
 				3E14C8871AFBB0790067C3AF /* AppDelegate.m in Sources */,
 				3E14C8B01AFBB0C90067C3AF /* VOVCManager.m in Sources */,
+				3E14C8C81AFC75B90067C3AF /* VOUserDetailController.m in Sources */,
+				3E14C8BF1AFC758A0067C3AF /* VOBookmarkMainController.m in Sources */,
+				3E14C8C51AFC75AA0067C3AF /* VOUserMainController.m in Sources */,
 				3E14C8841AFBB0790067C3AF /* main.m in Sources */,
 				3E14C8AF1AFBB0C90067C3AF /* UIViewController+Record.m in Sources */,
+				3E14C8C21AFC759B0067C3AF /* VOBookmarkDetailController.m in Sources */,
+				3E14C8B91AFC756D0067C3AF /* VORecentsMainController.m in Sources */,
+				3E14C8B61AFC755D0067C3AF /* VOFavoriteDetailController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,6 +484,7 @@
 				3E14C8A31AFBB0790067C3AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3E14C8A41AFBB0790067C3AF /* Build configuration list for PBXNativeTarget "VOVCManagerDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -450,6 +493,7 @@
 				3E14C8A61AFBB0790067C3AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

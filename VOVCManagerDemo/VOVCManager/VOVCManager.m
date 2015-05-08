@@ -113,14 +113,14 @@ static VOVCManager *_sharedManager;
 #pragma mark - 打印信息
 - (void)printPathWithTag:(NSString *)tag
 {
-#ifdef VO_DEBUG
+#if VO_DEBUG
     NSString *paddingItems = @"";
     for (NSUInteger i = 0; i <= self.viewControllers.count; i++)
     {
         paddingItems = [paddingItems stringByAppendingFormat:@"--"];
     }
     
-    VOLog(@"%@:%@-> %@", tag, paddingItems, [self.viewControllers.lastObject description]);
+    NSLog(@"%@:%@-> %@", tag, paddingItems, [self.viewControllers.lastObject description]);
 #endif
 }
 
@@ -220,6 +220,20 @@ static VOVCManager *_sharedManager;
 }
 
 #pragma mark - 页面出栈
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated{
+    if (self.currentNaviController) {
+        return [self.currentNaviController popViewControllerAnimated:animated];
+    }
+    return nil;
+}
+
+- (NSArray *)popToRootViewControllerAnimated:(BOOL)animated{
+    if (self.currentNaviController) {
+        return [self.currentNaviController popToRootViewControllerAnimated:animated];
+    }
+    return nil;
+}
+
 - (NSArray *)popToViewController:(NSString *)aController storyboard:(NSString *)aStoryboard{
     return [self popToViewController:aController storyboard:aStoryboard params:nil];
 }
@@ -299,6 +313,10 @@ static VOVCManager *_sharedManager;
     else{
         [self.currentViewController presentViewController:viewController animated:YES completion:completion];
     }
+}
+
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(void (^)(void))completion{
+    [self.currentViewController dismissViewControllerAnimated:animated completion:completion];
 }
 
 #pragma mark - 页面URL管理
