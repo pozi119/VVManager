@@ -69,18 +69,15 @@ static VOVCManager *_sharedManager;
     @synchronized(self){
         if (!_sharedManager) {
             _sharedManager = [[VOVCManager alloc] init];
-            [_sharedManager commonInit];
         }
     }
     return _sharedManager;
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone{
-    @synchronized(self){
-        if (!_sharedManager) {
-            _sharedManager = [super allocWithZone:zone];
-            [_sharedManager commonInit];
-        }
+    if (!_sharedManager) {
+        _sharedManager = [super allocWithZone:zone];
+        [_sharedManager commonInit];
     }
     return _sharedManager;
 }
