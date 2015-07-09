@@ -11,17 +11,15 @@
 NSString const *VOVCName = @"name";
 NSString const *VOVCController = @"vc";
 NSString const *VOVCStoryboard = @"sb";
-NSString const *VOVCShowType = @"showtype";
-NSString const *VOVCStyle = @"style";
+NSString const *VOVCISPresent = @"present";
 
 #pragma mark - VOVCManagerRegistration, 页面url注册
 @interface VOVCManagerRegistration: NSObject
 
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSString *viewController;
+@property (nonatomic, copy) NSString *controller;
 @property (nonatomic, copy) NSString *storyboard;
-@property (nonatomic, assign) NSInteger showMode;
-@property (nonatomic, assign) NSInteger style;
+@property (nonatomic, assign) BOOL isPresent;
 
 + (instancetype)registrationFromDictionary:(NSDictionary *)dic;
 
@@ -41,10 +39,9 @@ NSString const *VOVCStyle = @"style";
         return nil;
     }
     registration.name = name;
-    registration.viewController = viewController;
+    registration.controller = viewController;
     registration.storyboard = dic[VOVCStoryboard];
-    registration.showMode = [dic[VOVCShowType] integerValue];
-    registration.style = [dic[VOVCStyle] integerValue];
+    registration.isPresent = [dic[VOVCISPresent] boolValue];
     return registration;
 }
 @end
@@ -117,7 +114,7 @@ static VOVCManager *_sharedManager;
         paddingItems = [paddingItems stringByAppendingFormat:@"--"];
     }
     
-    NSLog(@"%@:%@-> %@", tag, paddingItems, [self.viewControllers.lastObject description]);
+    NSLog(@"%@:%@> %@", tag, paddingItems, [self.viewControllers.lastObject description]);
 #endif
 }
 
@@ -149,7 +146,15 @@ static VOVCManager *_sharedManager;
     for (NSString *key in params.allKeys) {
         id value = params[key];
         if (value && ![value isKindOfClass:[NSNull class]]) {
-            [obj setValue:value forKey:key];
+            @try {
+                [obj setValue:value forKeyPath:key];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"%@",exception);
+            }
+            @finally {
+                
+            }
         }
     }
 }
@@ -322,16 +327,15 @@ static VOVCManager *_sharedManager;
     [self.registerList addObject:[VOVCManagerRegistration registrationFromDictionary:spec]];
 }
 
-- (void)registerName:(NSString *)name forViewController:(NSString *)aController inStoryboard:(NSString *)aStoryboard showMode:(VVMShowMode)showMode presentStyle:(UIModalTransitionStyle)style{
+- (void)registerName:(NSString *)name forViewController:(NSString *)aController inStoryboard:(NSString *)aStoryboard isPresent:(BOOL)isPresent{
     if (!name || name.length == 0 || !aController || aController.length == 0) {
         return;
     }
     VOVCManagerRegistration *registration = [[VOVCManagerRegistration alloc] init];
     registration.name = name;
-    registration.viewController = aController;
+    registration.controller = aController;
     registration.storyboard = aStoryboard;
-    registration.showMode = showMode;
-    registration.style = style;
+    registration.isPresent = isPresent;
     [self.registerList addObject:registration];
 }
 
@@ -374,8 +378,20 @@ static VOVCManager *_sharedManager;
     NSString *name = (!components.path||components.path.length == 0)? components.host : components.path.lastPathComponent;
     /** 3. 获取页面参数 */
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    /** iOS8.0+
     for (NSURLQueryItem *item in components.queryItems) {
         [params addEntriesFromDictionary:@{item.name: item.value}];
+    }
+     */
+    /** iOS7.0 */
+    NSArray *itemStringArray = [components.query componentsSeparatedByString:@"&"];
+    for (NSString *itemString in itemStringArray) {
+        NSRange range = [itemString rangeOfString:@"="];
+        if (range.location != NSNotFound) {
+            NSString *key = [itemString substringToIndex:range.location];
+            NSString *val = [itemString substringFromIndex:range.location + range.length];
+            [params addEntriesFromDictionary:@{key:val}];
+        }
     }
     if (params.count == 0) {
         params = nil;
@@ -405,22 +421,11 @@ static VOVCManager *_sharedManager;
         return;
     }
     /** 2.打开对应页面 */
-    switch (registration.showMode) {
-        case VVMShowUnspecified:
-            //FIXME,慎用???
-            [self pushController:registration.viewController storyboard:registration.storyboard params:params];
-            if (![registration.viewController isEqualToString:NSStringFromClass([self.currentViewController class])]) {
-                [self presentViewController:registration.viewController storyboard:registration.storyboard params:params];
-            }
-            break;
-            
-        case VVMSHowPush:
-            [self pushController:registration.viewController storyboard:registration.storyboard params:params];
-            break;
-            
-        default:
-            [self presentViewController:registration.viewController storyboard:registration.storyboard params:params];
-            break;
+    if (registration.isPresent) {
+        [self presentViewController:registration.controller storyboard:registration.storyboard params:params];
+    }
+    else{
+        [self pushController:registration.controller storyboard:registration.storyboard params:params];
     }
 }
 

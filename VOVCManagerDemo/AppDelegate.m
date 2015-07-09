@@ -53,35 +53,35 @@
     [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"favorite",
                                                     VOVCController:@"VOFavoriteMainController",
                                                     VOVCStoryboard:@"Main",
-                                                    VOVCShowType:@(VVMSHowPush)}];
+                                                    VOVCISPresent:@(NO)}];
     [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"favoriteDetail",
                                                     VOVCController:@"VOFavoriteDetailController",
                                                     VOVCStoryboard:@"Main",
-                                                    VOVCShowType:@(VVMSHowPush)}];
+                                                    VOVCISPresent:@(NO)}];
     [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"recents",
                                                     VOVCController:@"VORecentsMainController",
                                                     VOVCStoryboard:@"Main",
-                                                    VOVCShowType:@(VVMSHowPush)}];
+                                                    VOVCISPresent:@(NO)}];
     [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"recentsDetail",
                                                     VOVCController:@"VORecentsDetailController",
                                                     VOVCStoryboard:@"Main",
-                                                    VOVCShowType:@(VVMSHowPush)}];
+                                                    VOVCISPresent:@(NO)}];
     [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"bookmark",
                                                     VOVCController:@"VOBookmarkMainController",
                                                     VOVCStoryboard:@"Main",
-                                                    VOVCShowType:@(VVMSHowPush)}];
+                                                    VOVCISPresent:@(NO)}];
     [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"bookmarkDetail",
                                                     VOVCController:@"VOBookmarkDetailController",
                                                     VOVCStoryboard:@"Main",
-                                                    VOVCShowType:@(VVMSHowPush)}];
+                                                    VOVCISPresent:@(NO)}];
     [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"user",
                                                     VOVCController:@"VOUserMainController",
                                                     VOVCStoryboard:@"Main",
-                                                    VOVCShowType:@(VVMSHowPush)}];
+                                                    VOVCISPresent:@(NO)}];
     [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"userDetail",
                                                     VOVCController:@"VOUserDetailController",
                                                     VOVCStoryboard:@"Main",
-                                                    VOVCShowType:@(VVMSHowPush)}];
+                                                    VOVCISPresent:@(NO)}];
 }
 
 @end

@@ -14,11 +14,6 @@
 
 static BOOL isRecorded;
 
-+(void)load
-{
-    isRecorded = NO;
-}
-
 #pragma mark - 替代方法
 
 -(void)recordViewDidAppear:(BOOL)animated{

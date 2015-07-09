@@ -10,4 +10,6 @@
 
 @interface VORecentsMainController : UIViewController
 
+@property (nonatomic, copy) NSString *test;
+
 @end

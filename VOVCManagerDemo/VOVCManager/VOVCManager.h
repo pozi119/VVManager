@@ -14,20 +14,7 @@
 UIKIT_EXTERN NSString const *VOVCName;
 UIKIT_EXTERN NSString const *VOVCController;
 UIKIT_EXTERN NSString const *VOVCStoryboard;
-UIKIT_EXTERN NSString const *VOVCShowType;
-UIKIT_EXTERN NSString const *VOVCStyle;
-
-
-typedef NS_ENUM(NSUInteger, VVMShowMode) {
-    /** 未指定,优先尝试push,之后尝试present */
-    VVMShowUnspecified = 0,
-    /** push方式,必须有UINavigationController */
-    VVMSHowPush    = 1,
-    /** present 方式*/
-    VVMShowPresent = 2,
-    /** 暂时不支持,后续考虑加入 */
-    VVMSHOWEmbed   = 4,
-};
+UIKIT_EXTERN NSString const *VOVCISPresent;
 
 /**
  * @brief 页面管理器
@@ -241,10 +228,9 @@ typedef NS_ENUM(NSUInteger, VVMShowMode) {
  *  @param name        页面注册名
  *  @param aController 页面ViewController类名
  *  @param aStoryboard nil表示从xib或者代码创建,否则从制定的Storyboard创建
- *  @param showMode    显示方式,present或者push
- *  @param style       显示动画,UIModalTransitionStyle. showMode为present时可用
+ *  @param isPresent   显示方式,是-present,否-push
  */
-- (void)registerName:(NSString *)name forViewController:(NSString *)aController inStoryboard:(NSString *)aStoryboard showMode:(VVMShowMode)showMode presentStyle:(UIModalTransitionStyle)style;
+- (void)registerName:(NSString *)name forViewController:(NSString *)aController inStoryboard:(NSString *)aStoryboard isPresent:(BOOL)isPresent;
 
 /**
  *  取消注册页面路径

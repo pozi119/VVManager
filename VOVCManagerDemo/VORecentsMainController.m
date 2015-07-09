@@ -24,6 +24,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setTest:(NSString *)test{
+    _test = test;
+    NSLog(@"test = %@", self.test);
+}
+
 /*
 #pragma mark - Navigation
 
