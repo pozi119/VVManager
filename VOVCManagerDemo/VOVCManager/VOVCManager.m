@@ -52,6 +52,8 @@ static VOVCManager *_sharedManager;
 @interface VOVCManager ()
 /** 记录当前的页面层次 */
 @property (nonatomic, strong) NSMutableArray *viewControllers;
+/** 记录当前的页面层次 */
+@property (nonatomic, strong) NSMutableArray *naviControllers;
 /** 获取当前的UINavigationController */
 @property (nonatomic, weak, readonly) UINavigationController *currentNaviController;
 /** 页面url注册 */
@@ -85,15 +87,19 @@ static VOVCManager *_sharedManager;
 
 - (void)commonInit{
     self.viewControllers = [NSMutableArray array];
+    self.naviControllers = [NSMutableArray array];
     self.registerList    = [NSMutableArray array];
     [UIViewController record];
 }
 
 #pragma mark - UIViewController+Record使用
 - (void)addViewController:(UIViewController *)viewController{
-    if ([viewController isKindOfClass:[UIViewController class]]) {
+    if ([viewController isKindOfClass:[UIViewController class]] && ![NSStringFromClass([viewController class]) isEqualToString:@"UIInputWindowController"]) {
         [self.viewControllers addObject:viewController];
         [self printPathWithTag:@"Appear   "];
+    }
+    if ([viewController isKindOfClass:[UINavigationController class]]) {
+        [self.naviControllers addObject:viewController];
     }
 }
 
@@ -128,14 +134,7 @@ static VOVCManager *_sharedManager;
         return self.currentViewController.navigationController;
     }
     else{
-        NSArray *array = [self.viewControllers copy];
-        for (NSInteger i = array.count - 1; i >= 0; i --) {
-            UIViewController *viewController = array[i];
-            if ([[viewController class] isSubclassOfClass:[UINavigationController class]]) {
-                return (UINavigationController *)viewController;
-            }
-        }
-        return nil;
+        return self.naviControllers.lastObject;
     }
 }
 
@@ -146,14 +145,9 @@ static VOVCManager *_sharedManager;
     for (NSString *key in params.allKeys) {
         id value = params[key];
         if (value && ![value isKindOfClass:[NSNull class]]) {
-            @try {
-                [obj setValue:value forKeyPath:key];
-            }
-            @catch (NSException *exception) {
-                NSLog(@"%@",exception);
-            }
-            @finally {
-                
+            SEL sel = NSSelectorFromString([NSString stringWithFormat:@"set%@:",key.capitalizedString]);
+            if ([obj respondsToSelector:sel]) {
+                [obj setValue:value forKey:key];
             }
         }
     }
@@ -220,6 +214,27 @@ static VOVCManager *_sharedManager;
     
     [self.currentNaviController pushViewController:viewController animated:animated];
 }
+
+- (void)pushController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams animated:(BOOL)animated removeControllers:(NSArray *)removeControllers{
+    [self pushController:aController storyboard:aStoryboard params:aParams animated:animated];
+    if(removeControllers == nil || self.currentNaviController == nil){
+        return;
+    }
+    NSMutableArray *willRemoveControllers = [NSMutableArray array];
+    NSMutableArray *tmpArray = [self.currentNaviController.viewControllers mutableCopy];
+    for (NSString *removeController in removeControllers) {
+        if (![removeController isEqualToString:aController]) {
+            for (UIViewController *viewController in tmpArray) {
+                if ([NSStringFromClass([viewController class]) isEqualToString:removeController]) {
+                    [willRemoveControllers addObject:viewController];
+                }
+            }
+        }
+    }
+    [tmpArray removeObjectsInArray:willRemoveControllers];
+}
+
+
 
 #pragma mark - 页面出栈
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated{

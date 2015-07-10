@@ -112,6 +112,16 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  */
 - (void)pushController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams animated:(BOOL)animated  NS_AVAILABLE_IOS(5_0);
 
+/**
+ *  页面跳转,移除中间页面
+ *
+ *  @param aController       目标页面,请在storyboard中设置和class名相同的storyboard id
+ *  @param aStoryboard       目标页面所在的storyboard
+ *  @param aParams           页面参数,aParams的每个key和viewController的属性对应(通过key-value方式设置)
+ *  @param animated          是否动画
+ *  @param removeControllers 要移除的页面名称数组
+ */
+- (void)pushController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams animated:(BOOL)animated removeControllers:(NSArray *)removeControllers;
 
 #pragma mark - 页面出栈
 /**
