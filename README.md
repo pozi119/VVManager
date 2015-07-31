@@ -20,7 +20,7 @@
     [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"favorite",
                                                     VOVCController:@"VOFavoriteMainController",
                                                     VOVCStoryboard:@"Main",
-                                                    VOVCShowType:@(VVMSHowPush)}];
+                                                    VOVCISPresent:@(NO)}];
                                                     
 3.使用storyboard,请设置每个ViewController的Storyboard ID和对应的Class名一致.
 
