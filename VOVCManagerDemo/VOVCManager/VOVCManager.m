@@ -232,6 +232,7 @@ static VOVCManager *_sharedManager;
         }
     }
     [tmpArray removeObjectsInArray:willRemoveControllers];
+    self.currentNaviController.viewControllers = tmpArray;
 }
 
 

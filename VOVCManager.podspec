@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version      = "1.0.0"
   s.summary      = "iOS页面管理器,支持URLScheme方式跳转"
   s.homepage     = "https://github.com/pozi119/VOVCManager"
-  s.license      = { :type => 'Apache 2.0', :file => 'LICENSE.md' }
+  s.license      = { :type => 'Apache 2.0', :file => 'LICENSE' }
   s.author       = { "Valo Lee" => "pozi119@163.com" }
   s.source       = { :git => "https://github.com/pozi119/VOVCManager.git", :tag => "v1.0.0" }
   s.platform     = :ios, '7.0'
