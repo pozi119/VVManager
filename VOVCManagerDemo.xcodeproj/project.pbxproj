@@ -24,6 +24,10 @@
 		3E14C8C21AFC759B0067C3AF /* VOBookmarkDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8C11AFC759B0067C3AF /* VOBookmarkDetailController.m */; };
 		3E14C8C51AFC75AA0067C3AF /* VOUserMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8C41AFC75AA0067C3AF /* VOUserMainController.m */; };
 		3E14C8C81AFC75B90067C3AF /* VOUserDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8C71AFC75B90067C3AF /* VOUserDetailController.m */; };
+		3E22C8641B8576720081CE6E /* Second.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E22C8631B8576720081CE6E /* Second.storyboard */; };
+		3E22C86B1B8576B60081CE6E /* VOXibViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E22C8691B8576B60081CE6E /* VOXibViewController.m */; };
+		3E22C86C1B8576B60081CE6E /* VOXibViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E22C86A1B8576B60081CE6E /* VOXibViewController.xib */; };
+		3E22C86F1B85771C0081CE6E /* VOTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E22C86E1B85771C0081CE6E /* VOTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +74,12 @@
 		3E14C8C41AFC75AA0067C3AF /* VOUserMainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VOUserMainController.m; sourceTree = "<group>"; };
 		3E14C8C61AFC75B90067C3AF /* VOUserDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOUserDetailController.h; sourceTree = "<group>"; };
 		3E14C8C71AFC75B90067C3AF /* VOUserDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VOUserDetailController.m; sourceTree = "<group>"; };
+		3E22C8631B8576720081CE6E /* Second.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Second.storyboard; sourceTree = "<group>"; };
+		3E22C8681B8576B60081CE6E /* VOXibViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOXibViewController.h; sourceTree = "<group>"; };
+		3E22C8691B8576B60081CE6E /* VOXibViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VOXibViewController.m; sourceTree = "<group>"; };
+		3E22C86A1B8576B60081CE6E /* VOXibViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VOXibViewController.xib; sourceTree = "<group>"; };
+		3E22C86D1B85771C0081CE6E /* VOTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOTableViewController.h; sourceTree = "<group>"; };
+		3E22C86E1B85771C0081CE6E /* VOTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VOTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +141,12 @@
 				3E14C8C61AFC75B90067C3AF /* VOUserDetailController.h */,
 				3E14C8C71AFC75B90067C3AF /* VOUserDetailController.m */,
 				3E14C88B1AFBB0790067C3AF /* Main.storyboard */,
+				3E22C8631B8576720081CE6E /* Second.storyboard */,
+				3E22C86D1B85771C0081CE6E /* VOTableViewController.h */,
+				3E22C86E1B85771C0081CE6E /* VOTableViewController.m */,
+				3E22C8681B8576B60081CE6E /* VOXibViewController.h */,
+				3E22C8691B8576B60081CE6E /* VOXibViewController.m */,
+				3E22C86A1B8576B60081CE6E /* VOXibViewController.xib */,
 				3E14C88E1AFBB0790067C3AF /* Images.xcassets */,
 				3E14C8901AFBB0790067C3AF /* LaunchScreen.xib */,
 				3E14C8811AFBB0790067C3AF /* Supporting Files */,
@@ -257,6 +273,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E22C86C1B8576B60081CE6E /* VOXibViewController.xib in Resources */,
+				3E22C8641B8576720081CE6E /* Second.storyboard in Resources */,
 				3E14C88D1AFBB0790067C3AF /* Main.storyboard in Resources */,
 				3E14C8921AFBB0790067C3AF /* LaunchScreen.xib in Resources */,
 				3E14C88F1AFBB0790067C3AF /* Images.xcassets in Resources */,
@@ -282,9 +300,11 @@
 				3E14C8BC1AFC757C0067C3AF /* VORecentsDetailController.m in Sources */,
 				3E14C8871AFBB0790067C3AF /* AppDelegate.m in Sources */,
 				3E14C8B01AFBB0C90067C3AF /* VOVCManager.m in Sources */,
+				3E22C86B1B8576B60081CE6E /* VOXibViewController.m in Sources */,
 				3E14C8C81AFC75B90067C3AF /* VOUserDetailController.m in Sources */,
 				3E14C8BF1AFC758A0067C3AF /* VOBookmarkMainController.m in Sources */,
 				3E14C8C51AFC75AA0067C3AF /* VOUserMainController.m in Sources */,
+				3E22C86F1B85771C0081CE6E /* VOTableViewController.m in Sources */,
 				3E14C8841AFBB0790067C3AF /* main.m in Sources */,
 				3E14C8AF1AFBB0C90067C3AF /* UIViewController+Record.m in Sources */,
 				3E14C8C21AFC759B0067C3AF /* VOBookmarkDetailController.m in Sources */,

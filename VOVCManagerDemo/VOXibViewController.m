@@ -1,25 +1,24 @@
 //
-//  VORecentsDetailController.m
+//  VOXibViewController.m
 //  VOVCManagerDemo
 //
-//  Created by Valo on 15/5/8.
+//  Created by Valo on 15/8/20.
 //  Copyright (c) 2015年 valo. All rights reserved.
 //
 
-#import "VORecentsDetailController.h"
+#import "VOXibViewController.h"
 
-@interface VORecentsDetailController ()
-@property (weak, nonatomic) IBOutlet UILabel *label;
+@interface VOXibViewController ()
 
 @end
 
-@implementation VORecentsDetailController
+@implementation VOXibViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.label.text = self.recentText;
-    self.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    // Do any additional setup after loading the view from its nib.
+    self.view.backgroundColor = self.bgColor;
+    self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
 }
 
 - (void)didReceiveMemoryWarning {

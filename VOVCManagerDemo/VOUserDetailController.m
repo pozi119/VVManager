@@ -10,19 +10,34 @@
 
 @interface VOUserDetailController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *label;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
 @end
 
 @implementation VOUserDetailController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     // Do any additional setup after loading the view.
+    self.label.text = self.userText;
+    if (self.animated) {
+        [self.indicator startAnimating];
+    }
+    else{
+        [self.indicator stopAnimating];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)dismiss {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 /*
 #pragma mark - Navigation

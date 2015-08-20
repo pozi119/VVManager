@@ -7,6 +7,7 @@
 //
 
 #import "VOUserMainController.h"
+#import "VOVCManager.h"
 
 @interface VOUserMainController ()
 
@@ -23,6 +24,11 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)showDetail {
+    [[VOVCManager sharedManager] pushController:@"VOUserDetailController" storyboard:@"Main" params:@{@"userText": @"From VOUserMainController"}];
+}
+
 
 /*
 #pragma mark - Navigation

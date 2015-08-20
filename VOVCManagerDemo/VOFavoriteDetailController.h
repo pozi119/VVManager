@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface VOFavoriteDetailController : UIViewController
+@property (nonatomic, copy) NSString *favText;
 
 @end

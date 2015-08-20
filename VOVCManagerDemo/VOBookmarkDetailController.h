@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface VOBookmarkDetailController : UIViewController
+@property (nonatomic, copy) NSString *bookmarkText;
 
 @end

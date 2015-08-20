@@ -10,6 +10,7 @@
 
 @interface VOBookmarkDetailController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *label;
 @end
 
 @implementation VOBookmarkDetailController
@@ -17,11 +18,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.label.text = self.bookmarkText;
+    self.modalTransitionStyle = UIModalTransitionStylePartialCurl;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)dismiss {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*

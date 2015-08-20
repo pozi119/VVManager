@@ -7,6 +7,7 @@
 //
 
 #import "VORecentsMainController.h"
+#import "VOVCManager.h"
 
 @interface VORecentsMainController ()
 
@@ -28,6 +29,11 @@
     _test = test;
     NSLog(@"test = %@", self.test);
 }
+
+- (IBAction)showDetail {
+    [[VOVCManager sharedManager] pushController:@"VORecentsDetailController" storyboard:@"Main" params:@{@"recentText": @"From VORecentsMainController"}];
+}
+
 
 /*
 #pragma mark - Navigation

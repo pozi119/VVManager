@@ -145,7 +145,9 @@ static VOVCManager *_sharedManager;
     for (NSString *key in params.allKeys) {
         id value = params[key];
         if (value && ![value isKindOfClass:[NSNull class]]) {
-            SEL sel = NSSelectorFromString([NSString stringWithFormat:@"set%@:",key.capitalizedString]);
+            NSString *capital = [[key substringToIndex:1] uppercaseString];
+            NSString *capitalizedKey  = [key stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:capital];
+            SEL sel = NSSelectorFromString([NSString stringWithFormat:@"set%@:",capitalizedKey]);
             if ([obj respondsToSelector:sel]) {
                 [obj setValue:value forKey:key];
             }

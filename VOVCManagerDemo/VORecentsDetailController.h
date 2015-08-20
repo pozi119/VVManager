@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface VORecentsDetailController : UIViewController
+@property (nonatomic, copy) NSString *recentText;
 
 @end

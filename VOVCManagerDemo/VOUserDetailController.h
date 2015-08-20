@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface VOUserDetailController : UIViewController
-
+@property (nonatomic, copy) NSString *userText;
+@property (nonatomic, assign) BOOL animated;
 @end

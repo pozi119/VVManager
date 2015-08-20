@@ -9,6 +9,7 @@
 #import "VOFavoriteDetailController.h"
 
 @interface VOFavoriteDetailController ()
+@property (weak, nonatomic) IBOutlet UILabel *label;
 
 @end
 
@@ -17,11 +18,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if (self.favText) {
+        self.label.text = self.favText;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)dismiss {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*
