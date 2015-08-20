@@ -26,7 +26,8 @@
 
 4.其他使用请参考注释.
 
-5. VOVCFavoriteMainController中有使用代码进行跳转的示例.
+5.VOVCFavoriteMainController中有使用代码进行跳转的示例.
+
 		- (IBAction)showDetail {
 		    [[VOVCManager sharedManager] pushController:@"VOFavoriteDetailController" storyboard:@"Main"];
 		}
