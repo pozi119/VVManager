@@ -33,10 +33,10 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  */
 + (instancetype)sharedManager;
 
-/**
- *  当前页面
- */
-@property (nonatomic, weak, readonly) UIViewController *currentViewController;
+@property (nonatomic, weak, readonly) UIViewController *currentViewController;          /**< 当前页面 */
+@property (nonatomic, weak, readonly) UINavigationController *currentNaviController;    /**< 当前导航 */
+@property (nonatomic, weak, readonly) UIViewController *rootViewController;             /**< 第一个页面 */
+@property (nonatomic, weak, readonly) UINavigationController *rootNavigationController; /**< 第一个导航 */
 
 /**
  *  添加一个ViewController到管理器,主要提供给UIViewController+Record使用
@@ -199,20 +199,21 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @param aController 目标页面,请在storyboard中设置和class名相同的storyboard id
  *  @param aStoryboard 目标页面所在的storyboard
  *  @param aParams     页面参数,aParams的每个key和viewController的属性对应(通过key-value方式设置)
- *  @param inNavi      目标页面是否包含在UINavigationController中
+ *  @param destInNavi  目标页面是否包含在UINavigationController中
  */
-- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams isInNavi:(BOOL)inNavi  NS_AVAILABLE_IOS(5_0);
+- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams destInNavi:(BOOL)destInNavi  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  弹出模态页面
  *
- *  @param aController 目标页面,请在storyboard中设置和class名相同的storyboard id
- *  @param aStoryboard 目标页面所在的storyboard
- *  @param aParams     页面参数,aParams的每个key和viewController的属性对应(通过key-value方式设置)
- *  @param inNavi      目标页面是否包含在UINavigationController中
- *  @param completion  页面显示动画完成后的操作
+ *  @param aController    目标页面,请在storyboard中设置和class名相同的storyboard id
+ *  @param aStoryboard    目标页面所在的storyboard
+ *  @param aParams        页面参数,aParams的每个key和viewController的属性对应(通过key-value方式设置)
+ *  @param sourceWithNavi 目标页面是否包含在UINavigationController中
+ *  @param destInNavi     是否使用源页面的UINavigationController进行弹出操作
+ *  @param completion     页面显示动画完成后的操作
  */
-- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams isInNavi:(BOOL)inNavi completion:(void (^)(void))completion  NS_AVAILABLE_IOS(5_0);
+- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams sourceWithNavi:(BOOL)sourceWithNavi destInNavi:(BOOL)destInNavi completion:(void (^)(void))completion  NS_AVAILABLE_IOS(5_0);
 
 #pragma mark - 页面回收
 /**
@@ -222,6 +223,16 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @param completion 动画完成后的操作
  */
 - (void)dismissViewControllerAnimated:(BOOL)animated completion:(void (^)(void))completion  NS_AVAILABLE_IOS(5_0);
+
+/**
+ *  回收当前页面
+ *
+ *  @param withNavi   是否连同页面的UINavigationController一起回收
+ *  @param animated   是否有动画效果
+ *  @param completion 动画完成后的操作
+ */
+- (void)dismissViewControllerWithNavi:(BOOL)withNavi animated:(BOOL)animated  completion:(void (^)(void))completion  NS_AVAILABLE_IOS(5_0);
+
 
 #pragma mark - 页面URL管理
 /**

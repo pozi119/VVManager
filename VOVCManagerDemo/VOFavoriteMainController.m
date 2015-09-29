@@ -60,12 +60,12 @@
 }
 
 - (IBAction)presentBookmarks {
-    [[VOVCManager sharedManager] presentViewController:@"VOBookmarkDetailController" storyboard:@"Main" params:@{@"bookmarkText": @"Present"} isInNavi:NO];
+    [[VOVCManager sharedManager] presentViewController:@"VOBookmarkDetailController" storyboard:@"Main" params:@{@"bookmarkText": @"Present"} destInNavi:NO];
     
 }
 
 - (IBAction)presentUser {
-    [[VOVCManager sharedManager] presentViewController:@"VOUserDetailController" storyboard:@"Main"  params:@{@"userText": @"Present", @"animated":@(YES)} isInNavi:YES completion:^{
+    [[VOVCManager sharedManager] presentViewController:@"VOUserDetailController" storyboard:@"Main"  params:@{@"userText": @"Present", @"animated":@(YES)} sourceWithNavi:YES destInNavi:YES completion:^{
         NSLog(@"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
     }];
 }

@@ -54,10 +54,10 @@ static VOVCManager *_sharedManager;
 @property (nonatomic, strong) NSMutableArray *viewControllers;
 /** 记录当前的页面层次 */
 @property (nonatomic, strong) NSMutableArray *naviControllers;
-/** 获取当前的UINavigationController */
-@property (nonatomic, weak, readonly) UINavigationController *currentNaviController;
 /** 页面url注册 */
 @property (nonatomic, strong) NSMutableArray *registerList;
+/** 排除记录的页面 */
+@property (nonatomic, strong) NSArray *ignoredViewControllers;
 
 @end
 
@@ -89,12 +89,28 @@ static VOVCManager *_sharedManager;
     self.viewControllers = [NSMutableArray array];
     self.naviControllers = [NSMutableArray array];
     self.registerList    = [NSMutableArray array];
+    self.ignoredViewControllers  = @[@"UIInputWindowController",
+                                     @"UICompatibilityInputViewController",
+                                     @"UIKeyboardCandidateGridCollectionViewController",
+                                     @"UIInputViewController",
+                                     @"UIApplicationRotationFollowingControllerNoTouches"];
     [UIViewController record];
 }
 
 #pragma mark - UIViewController+Record使用
 - (void)addViewController:(UIViewController *)viewController{
-    if ([viewController isKindOfClass:[UIViewController class]] && ![NSStringFromClass([viewController class]) isEqualToString:@"UIInputWindowController"]) {
+    if ([viewController isKindOfClass:[UIViewController class]]) {
+        NSString *vcStr = NSStringFromClass([viewController class]);
+        __block BOOL ignore = NO;
+        [self.ignoredViewControllers enumerateObjectsUsingBlock:^(NSString *ignoredVC, NSUInteger idx, BOOL *stop) {
+            if ([ignoredVC isEqualToString:vcStr]) {
+                ignore = YES;
+                *stop  = YES;
+            }
+        }];
+        if (ignore) {
+            return;
+        }
         [self.viewControllers addObject:viewController];
         [self printPathWithTag:@"Appear   "];
     }
@@ -136,6 +152,14 @@ static VOVCManager *_sharedManager;
     else{
         return self.naviControllers.lastObject;
     }
+}
+
+- (UIViewController *)rootViewController{
+    return self.viewControllers.firstObject;
+}
+
+- (UINavigationController *)rootNavigationController{
+    return self.naviControllers.firstObject;
 }
 
 - (void)setParams:(NSDictionary *)params forObject:(NSObject *)obj{
@@ -312,22 +336,31 @@ static VOVCManager *_sharedManager;
 }
 
 - (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams{
-    [self presentViewController:aController storyboard:aStoryboard params:aParams isInNavi:YES];
+    [self presentViewController:aController storyboard:aStoryboard params:aParams destInNavi:YES];
 }
 
-- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams isInNavi:(BOOL)inNavi{
-    [self presentViewController:aController storyboard:aStoryboard params:aParams isInNavi:YES completion:nil];
+- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams destInNavi:(BOOL)destInNavi{
+    [self presentViewController:aController storyboard:aStoryboard params:aParams sourceWithNavi:YES destInNavi:YES completion:nil];
 }
 
-- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams isInNavi:(BOOL)inNavi completion:(void (^)(void))completion{
+- (void)presentViewController:(NSString *)aController
+                   storyboard:(NSString *)aStoryboard
+                       params:(NSDictionary *)aParams
+               sourceWithNavi:(BOOL)sourceWithNavi
+                   destInNavi:(BOOL)destInNavi
+                   completion:(void (^)(void))completion{
     UIViewController *viewController = [self viewController:aController storyboard:aStoryboard params:aParams];
-    if(inNavi){
-        if (self.currentNaviController) {
-            [self.currentNaviController presentViewController:viewController animated:YES completion:completion];
+    if (destInNavi) {
+        if (!([viewController isKindOfClass:[UINavigationController class]] || viewController.navigationController)) {
+            viewController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        }
+    }
+    if(sourceWithNavi){
+        if (self.currentViewController.navigationController) {
+            [self.currentViewController.navigationController presentViewController:viewController animated:YES completion:completion];
         }
         else{
-        UINavigationController *naviController = [[UINavigationController alloc] initWithRootViewController:viewController];
-            [self.currentViewController presentViewController:naviController animated:YES completion:completion];
+            [self.currentViewController presentViewController:viewController animated:YES completion:completion];
         }
     }
     else{
@@ -336,7 +369,16 @@ static VOVCManager *_sharedManager;
 }
 
 - (void)dismissViewControllerAnimated:(BOOL)animated completion:(void (^)(void))completion{
-    [self.currentViewController dismissViewControllerAnimated:animated completion:completion];
+    [self dismissViewControllerWithNavi:NO animated:animated completion:completion];
+}
+
+- (void)dismissViewControllerWithNavi:(BOOL)withNavi animated:(BOOL)animated  completion:(void (^)(void))completion{
+    if (withNavi && self.currentViewController.navigationController) {
+        [self.currentViewController.navigationController dismissViewControllerAnimated:YES completion:completion];
+    }
+    else{
+        [self.currentViewController dismissViewControllerAnimated:animated completion:completion];
+    }
 }
 
 #pragma mark - 页面URL管理
