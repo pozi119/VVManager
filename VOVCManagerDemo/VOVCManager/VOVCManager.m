@@ -93,7 +93,8 @@ static VOVCManager *_sharedManager;
                                      @"UICompatibilityInputViewController",
                                      @"UIKeyboardCandidateGridCollectionViewController",
                                      @"UIInputViewController",
-                                     @"UIApplicationRotationFollowingControllerNoTouches"];
+                                     @"UIApplicationRotationFollowingControllerNoTouches",
+                                     @"_UIRemoteInputViewController"];
     [UIViewController record];
 }
 
