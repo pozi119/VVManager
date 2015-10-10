@@ -177,7 +177,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
 
 #pragma mark - 页面显示,present
 /**
- *  弹出模态页面，默认无参数，默认生成新navigationController
+ *  弹出模态页面，默认无参数，源页面和目标页面都包含在UINavigationController中(目标页面如果没有UINavigationController则会自动创建)
  *
  *  @param aController 目标页面,请在storyboard中设置和class名相同的storyboard id
  *  @param aStoryboard 目标页面所在的storyboard
@@ -185,7 +185,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
 - (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard  NS_AVAILABLE_IOS(5_0);
 
 /**
- *  弹出模态页面，默认生成新navigationController
+ *  弹出模态页面，源页面和目标页面都包含在UINavigationController中(目标页面如果没有UINavigationController则会自动创建)
  *
  *  @param aController 目标页面,请在storyboard中设置和class名相同的storyboard id
  *  @param aStoryboard 目标页面所在的storyboard
@@ -194,7 +194,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
 - (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams  NS_AVAILABLE_IOS(5_0);
 
 /**
- *  弹出模态页面
+ *  弹出模态页面,源页面包含在UINavigationController中,若源页面不在UINavigationController中则使用页面本身
  *
  *  @param aController 目标页面,请在storyboard中设置和class名相同的storyboard id
  *  @param aStoryboard 目标页面所在的storyboard
@@ -204,13 +204,13 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
 - (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams destInNavi:(BOOL)destInNavi  NS_AVAILABLE_IOS(5_0);
 
 /**
- *  弹出模态页面
+ *  弹出模态页面,自定义源页面和目标页面是否包含在UINavigationController中
  *
  *  @param aController    目标页面,请在storyboard中设置和class名相同的storyboard id
  *  @param aStoryboard    目标页面所在的storyboard
  *  @param aParams        页面参数,aParams的每个key和viewController的属性对应(通过key-value方式设置)
- *  @param sourceWithNavi 目标页面是否包含在UINavigationController中
- *  @param destInNavi     是否使用源页面的UINavigationController进行弹出操作
+ *  @param sourceWithNavi 是否使用源页面的UINavigationController进行弹出操作,源页面若无UINavigationController,则直接使用页面本身弹出
+ *  @param destInNavi     目标页面是否包含在UINavigationController中
  *  @param completion     页面显示动画完成后的操作
  */
 - (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams sourceWithNavi:(BOOL)sourceWithNavi destInNavi:(BOOL)destInNavi completion:(void (^)(void))completion  NS_AVAILABLE_IOS(5_0);
@@ -232,6 +232,13 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @param completion 动画完成后的操作
  */
 - (void)dismissViewControllerWithNavi:(BOOL)withNavi animated:(BOOL)animated  completion:(void (^)(void))completion  NS_AVAILABLE_IOS(5_0);
+
+/**
+ *  回收页面至有UINavigationController的页面
+ *
+ *  @param completion 回收完成后的操作
+ */
+- (void)dismissToNavigationControllerCompletion:(void (^)(void))completion;
 
 
 #pragma mark - 页面URL管理

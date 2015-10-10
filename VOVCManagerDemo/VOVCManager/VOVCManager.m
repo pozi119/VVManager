@@ -341,7 +341,7 @@ static VOVCManager *_sharedManager;
 }
 
 - (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams destInNavi:(BOOL)destInNavi{
-    [self presentViewController:aController storyboard:aStoryboard params:aParams sourceWithNavi:YES destInNavi:YES completion:nil];
+    [self presentViewController:aController storyboard:aStoryboard params:aParams sourceWithNavi:YES destInNavi:destInNavi completion:nil];
 }
 
 - (void)presentViewController:(NSString *)aController
@@ -379,6 +379,19 @@ static VOVCManager *_sharedManager;
     }
     else{
         [self.currentViewController dismissViewControllerAnimated:animated completion:completion];
+    }
+}
+
+- (void)dismissToNavigationControllerCompletion:(void (^)(void))completion{
+    if(!self.currentViewController.navigationController && self.naviControllers.count > 1) {
+        [self dismissViewControllerAnimated:NO completion:^{
+            [self dismissToNavigationControllerCompletion:completion];
+        }];
+    }
+    else{
+        if (completion) {
+            completion();
+        }
     }
 }
 
