@@ -50,15 +50,12 @@ NSString const *VOVCISPresent = @"present";
 static VOVCManager *_sharedManager;
 
 @interface VOVCManager ()
-/** 记录当前的页面层次 */
-@property (nonatomic, strong) NSMutableArray *viewControllers;
-/** 记录当前的页面层次 */
-@property (nonatomic, strong) NSMutableArray *naviControllers;
-/** 页面url注册 */
-@property (nonatomic, strong) NSMutableArray *registerList;
-/** 排除记录的页面 */
-@property (nonatomic, strong) NSArray *ignoredViewControllers;
-
+@property (nonatomic, strong) NSMutableArray *viewControllers; /**< 记录当前的页面层次 */
+@property (nonatomic, strong) NSMutableArray *naviControllers; /**< 记录当前的页面层次 */
+@property (nonatomic, strong) NSMutableArray *registerList;    /**< 页面url注册 */
+@property (nonatomic, strong) NSArray *ignoredViewControllers; /**< 排除记录的页面 */
+@property (nonatomic, copy) void (^appearExtraHandler)(UIViewController *);
+@property (nonatomic, copy) void (^disappearExtraHandler)(UIViewController *);
 @end
 
 @implementation VOVCManager
@@ -114,6 +111,9 @@ static VOVCManager *_sharedManager;
         }
         [self.viewControllers addObject:viewController];
         [self printPathWithTag:@"Appear   "];
+        if(self.appearExtraHandler){
+            self.appearExtraHandler(viewController);
+        }
     }
     if ([viewController isKindOfClass:[UINavigationController class]]) {
         [self.naviControllers addObject:viewController];
@@ -121,9 +121,13 @@ static VOVCManager *_sharedManager;
 }
 
 - (void)removeViewController:(UIViewController *)viewController{
-    if ([viewController isKindOfClass:[UIViewController class]]) {
+    if ([viewController isKindOfClass:[UIViewController class]] &&
+        [self.viewControllers containsObject:viewController]) {
         [self.viewControllers removeObject:viewController];
         [self printPathWithTag:@"Disappear"];
+        if (self.disappearExtraHandler) {
+            self.disappearExtraHandler(viewController);
+        }
     }
 }
 
@@ -331,6 +335,29 @@ static VOVCManager *_sharedManager;
     }
 }
 
+- (NSArray *)popExcludeViewControllers:(NSArray *)viewControllers animated:(BOOL)animated {
+    NSArray *curVCs = [self.currentViewController.navigationController viewControllers];
+    NSMutableArray *targetVCs = [curVCs mutableCopy];
+    NSMutableArray *willRemoveVCs = [NSMutableArray array];
+    [viewControllers enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[NSString class]]) {
+            [curVCs enumerateObjectsUsingBlock:^(UIViewController *vc, NSUInteger idx, BOOL *stop) {
+                if ([obj isEqualToString:NSStringFromClass([vc class])]) {
+                    [willRemoveVCs addObject:vc];
+                }
+            }];
+        }
+        else if([obj isKindOfClass:[UIViewController class]]){
+            [willRemoveVCs addObject:obj];
+        }
+    }];
+    [targetVCs removeObjectsInArray:willRemoveVCs];
+    if (targetVCs.count > 0) {
+        [self.currentNaviController setViewControllers:targetVCs animated:animated];
+    }
+    return targetVCs;
+}
+
 #pragma mark - 页面显示,present
 - (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard{
     [self presentViewController:aController storyboard:aStoryboard params:nil];
@@ -350,10 +377,75 @@ static VOVCManager *_sharedManager;
                sourceWithNavi:(BOOL)sourceWithNavi
                    destInNavi:(BOOL)destInNavi
                    completion:(void (^)(void))completion{
+    return [self presentViewController:aController storyboard:aStoryboard params:aParams sourceWithNavi:sourceWithNavi destInNavi:destInNavi alpha:1 completion:completion];
+}
+
+- (void)presentViewController:(NSString *)aController
+                   storyboard:(NSString *)aStoryboard
+                       params:(NSDictionary *)aParams
+               sourceWithNavi:(BOOL)sourceWithNavi
+                   destInNavi:(BOOL)destInNavi
+                        alpha:(CGFloat)alpha
+                   completion:(void (^)(void))completion{
     UIViewController *viewController = [self viewController:aController storyboard:aStoryboard params:aParams];
+    if (alpha < 1 && alpha >= 0) {
+        UIColor *color = [viewController.view.backgroundColor colorWithAlphaComponent:alpha];
+        viewController.view.backgroundColor = color;
+    }
     if (destInNavi) {
         if (!([viewController isKindOfClass:[UINavigationController class]] || viewController.navigationController)) {
             viewController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        }
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+            viewController.navigationController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        }else{
+            self.currentNaviController.modalPresentationStyle = UIModalPresentationCurrentContext;
+        }
+    }
+    else{
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+            viewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        }else{
+            self.currentNaviController.modalPresentationStyle = UIModalPresentationCurrentContext;
+        }
+    }
+    if(sourceWithNavi){
+        if (self.currentViewController.navigationController) {
+            [self.currentViewController.navigationController presentViewController:viewController animated:YES completion:completion];
+        }
+        else{
+            [self.currentViewController presentViewController:viewController animated:YES completion:completion];
+        }
+    }
+    else{
+        [self.currentViewController presentViewController:viewController animated:YES completion:completion];
+    }
+}
+
+- (void)presentViewController:(UIViewController *)viewController
+               sourceWithNavi:(BOOL)sourceWithNavi
+                   destInNavi:(BOOL)destInNavi
+                        alpha:(CGFloat)alpha
+                   completion:(void (^)(void))completion{
+    if (alpha < 1 && alpha >= 0) {
+        UIColor *color = [viewController.view.backgroundColor colorWithAlphaComponent:alpha];
+        viewController.view.backgroundColor = color;
+    }
+    if (destInNavi) {
+        if (!([viewController isKindOfClass:[UINavigationController class]] || viewController.navigationController)) {
+            viewController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        }
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+            viewController.navigationController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        }else{
+            self.currentNaviController.modalPresentationStyle = UIModalPresentationCurrentContext;
+        }
+    }
+    else{
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+            viewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        }else{
+            self.currentNaviController.modalPresentationStyle = UIModalPresentationCurrentContext;
         }
     }
     if(sourceWithNavi){

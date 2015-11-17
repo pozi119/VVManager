@@ -39,6 +39,22 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
 @property (nonatomic, weak, readonly) UINavigationController *rootNavigationController; /**< 第一个导航 */
 
 /**
+ *  在viewDidAppear要处理的通用额外操作,比如统计页面是否显示
+ *  通常在-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions中设置
+ *
+ *  @param appearExtraHandler 额外操作
+ */
+-(void)setAppearExtraHandler:(void (^)(UIViewController *))appearExtraHandler;
+
+/**
+ *  在viewDidDisappear要处理的通用额外操作,比如统计页面是否退出
+ *  通常在-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions中设置
+ *
+ *  @param dissappearExtraHandler 额外操作
+ */
+- (void)setDisappearExtraHandler:(void (^)(UIViewController *))disappearExtraHandler;
+
+/**
  *  添加一个ViewController到管理器,主要提供给UIViewController+Record使用
  *
  *  @param viewController 要添加的ViewController
@@ -175,6 +191,16 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  */
 - (NSArray *)popToViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams animated:(BOOL)animated  NS_AVAILABLE_IOS(5_0);
 
+/**
+ *  页面弹出
+ *
+ *  @param viewControllers 要排除的页面,可以是页面名或者页面对象
+ *  @param animated        是否有动画
+ *
+ *  @return 出栈页面数组
+ */
+- (NSArray *)popExcludeViewControllers:(NSArray *)viewControllers animated:(BOOL)animated;
+
 #pragma mark - 页面显示,present
 /**
  *  弹出模态页面，默认无参数，源页面和目标页面都包含在UINavigationController中(目标页面如果没有UINavigationController则会自动创建)
@@ -214,6 +240,40 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @param completion     页面显示动画完成后的操作
  */
 - (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams sourceWithNavi:(BOOL)sourceWithNavi destInNavi:(BOOL)destInNavi completion:(void (^)(void))completion  NS_AVAILABLE_IOS(5_0);
+
+/**
+ *  弹出模态页面,自定义源页面和目标页面是否包含在UINavigationController中,自定义弹出页面背景透明度
+ *
+ *  @param aController    目标页面,请在storyboard中设置和class名相同的storyboard id
+ *  @param aStoryboard    目标页面所在的storyboard
+ *  @param aParams        页面参数,aParams的每个key和viewController的属性对应(通过key-value方式设置)
+ *  @param sourceWithNavi 是否使用源页面的UINavigationController进行弹出操作,源页面若无UINavigationController,则直接使用页面本身弹出
+ *  @param destInNavi     目标页面是否包含在UINavigationController中
+ *  @param alpha          目标页面背景透明度(0.0 - 1.0)
+ *  @param completion     页面显示动画完成后的操作
+ */
+- (void)presentViewController:(NSString *)aController
+                   storyboard:(NSString *)aStoryboard
+                       params:(NSDictionary *)aParams
+               sourceWithNavi:(BOOL)sourceWithNavi
+                   destInNavi:(BOOL)destInNavi
+                        alpha:(CGFloat)alpha
+                   completion:(void (^)(void))completion;
+
+/**
+ *  弹出模态页面,自定义源页面和目标页面是否包含在UINavigationController中,自定义弹出页面背景透明度
+ *
+ *  @param viewController 目标页面,请在storyboard中设置和class名相同的storyboard id
+ *  @param sourceWithNavi 是否使用源页面的UINavigationController进行弹出操作,源页面若无UINavigationController,则直接使用页面本身弹出
+ *  @param destInNavi     目标页面是否包含在UINavigationController中
+ *  @param alpha          目标页面背景透明度(0.0 - 1.0)
+ *  @param completion     页面显示动画完成后的操作
+ */
+- (void)presentViewController:(UIViewController *)viewController
+               sourceWithNavi:(BOOL)sourceWithNavi
+                   destInNavi:(BOOL)destInNavi
+                        alpha:(CGFloat)alpha
+                   completion:(void (^)(void))completion;
 
 #pragma mark - 页面回收
 /**
