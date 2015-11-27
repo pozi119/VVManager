@@ -91,8 +91,33 @@ static VOVCManager *_sharedManager;
                                      @"UIKeyboardCandidateGridCollectionViewController",
                                      @"UIInputViewController",
                                      @"UIApplicationRotationFollowingControllerNoTouches",
-                                     @"_UIRemoteInputViewController"];
+                                     @"_UIRemoteInputViewController",
+                                     @"PLUICameraViewController"];
     [UIViewController record];
+}
+
+#pragma mark - utils
++ (UIImage*)captureView:(UIView*)view backgroundColor:(UIColor *)backgroundColor{
+    if(!view){
+        return nil;
+    }
+    
+    CGFloat scale = [UIScreen mainScreen].scale;
+    CGRect rect = CGRectMake(0.0, 0.0, view.frame.size.width * scale, view.frame.size.height * scale);
+    UIGraphicsBeginImageContextWithOptions(rect.size, YES, 1.0);
+    
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextScaleCTM(context, scale, scale);
+    if(backgroundColor){
+        CGContextSetFillColorWithColor(context, backgroundColor.CGColor);
+        CGContextFillRect(context, rect);
+    }
+    [view.layer renderInContext:context];
+    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
 #pragma mark - UIViewController+Record使用
@@ -387,39 +412,8 @@ static VOVCManager *_sharedManager;
                    destInNavi:(BOOL)destInNavi
                         alpha:(CGFloat)alpha
                    completion:(void (^)(void))completion{
-    UIViewController *viewController = [self viewController:aController storyboard:aStoryboard params:aParams];
-    if (alpha < 1 && alpha >= 0) {
-        UIColor *color = [viewController.view.backgroundColor colorWithAlphaComponent:alpha];
-        viewController.view.backgroundColor = color;
-    }
-    if (destInNavi) {
-        if (!([viewController isKindOfClass:[UINavigationController class]] || viewController.navigationController)) {
-            viewController = [[UINavigationController alloc] initWithRootViewController:viewController];
-        }
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-            viewController.navigationController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-        }else{
-            self.currentNaviController.modalPresentationStyle = UIModalPresentationCurrentContext;
-        }
-    }
-    else{
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-            viewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-        }else{
-            self.currentNaviController.modalPresentationStyle = UIModalPresentationCurrentContext;
-        }
-    }
-    if(sourceWithNavi){
-        if (self.currentViewController.navigationController) {
-            [self.currentViewController.navigationController presentViewController:viewController animated:YES completion:completion];
-        }
-        else{
-            [self.currentViewController presentViewController:viewController animated:YES completion:completion];
-        }
-    }
-    else{
-        [self.currentViewController presentViewController:viewController animated:YES completion:completion];
-    }
+    UIViewController *destVC = [self viewController:aController storyboard:aStoryboard params:aParams];
+    [self presentViewController:destVC sourceWithNavi:sourceWithNavi destInNavi:destInNavi alpha:alpha completion:completion];
 }
 
 - (void)presentViewController:(UIViewController *)viewController
@@ -427,37 +421,39 @@ static VOVCManager *_sharedManager;
                    destInNavi:(BOOL)destInNavi
                         alpha:(CGFloat)alpha
                    completion:(void (^)(void))completion{
-    if (alpha < 1 && alpha >= 0) {
-        UIColor *color = [viewController.view.backgroundColor colorWithAlphaComponent:alpha];
-        viewController.view.backgroundColor = color;
-    }
+    UIViewController *destVC = viewController;
     if (destInNavi) {
-        if (!([viewController isKindOfClass:[UINavigationController class]] || viewController.navigationController)) {
-            viewController = [[UINavigationController alloc] initWithRootViewController:viewController];
-        }
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-            viewController.navigationController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-        }else{
-            self.currentNaviController.modalPresentationStyle = UIModalPresentationCurrentContext;
-        }
-    }
-    else{
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-            viewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-        }else{
-            self.currentNaviController.modalPresentationStyle = UIModalPresentationCurrentContext;
+        if (![destVC isKindOfClass:[UINavigationController class]]){
+            if (destVC.navigationController) {
+                destVC = destVC.navigationController;
+            }
+            else{
+                destVC = [[UINavigationController alloc] initWithRootViewController:destVC];
+            }
         }
     }
+    UIViewController *sourceVC = self.currentNaviController;
     if(sourceWithNavi){
         if (self.currentViewController.navigationController) {
-            [self.currentViewController.navigationController presentViewController:viewController animated:YES completion:completion];
+            sourceVC = self.currentViewController.navigationController;
         }
         else{
-            [self.currentViewController presentViewController:viewController animated:YES completion:completion];
+            sourceVC = self.currentNaviController;
         }
     }
-    else{
-        [self.currentViewController presentViewController:viewController animated:YES completion:completion];
+    if (alpha < 1 && alpha >= 0) {
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+            destVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            UIColor *color = [destVC.view.backgroundColor colorWithAlphaComponent:alpha];
+            destVC.view.backgroundColor = color;
+        }else{
+            destVC.modalPresentationStyle = UIModalPresentationCurrentContext;
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:sourceVC.view.bounds];
+            imageView.image = [[self class] captureView:sourceVC.view backgroundColor:[UIColor blackColor]];
+            imageView.alpha = 0.3;
+            [destVC.view addSubview:imageView];
+            [destVC.view sendSubviewToBack:imageView];
+        }
     }
 }
 
