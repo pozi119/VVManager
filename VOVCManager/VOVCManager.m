@@ -455,6 +455,7 @@ static VOVCManager *_sharedManager;
             [destVC.view sendSubviewToBack:imageView];
         }
     }
+    [sourceVC presentViewController:destVC animated:YES completion:completion];
 }
 
 - (void)dismissViewControllerAnimated:(BOOL)animated completion:(void (^)(void))completion{

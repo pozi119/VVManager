@@ -13,9 +13,6 @@
 		3E14C88F1AFBB0790067C3AF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E14C88E1AFBB0790067C3AF /* Images.xcassets */; };
 		3E14C8921AFBB0790067C3AF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E14C8901AFBB0790067C3AF /* LaunchScreen.xib */; };
 		3E14C89E1AFBB0790067C3AF /* VOVCManagerDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C89D1AFBB0790067C3AF /* VOVCManagerDemoTests.m */; };
-		3E14C8AE1AFBB0C90067C3AF /* NSObject+Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8A91AFBB0C90067C3AF /* NSObject+Runtime.m */; };
-		3E14C8AF1AFBB0C90067C3AF /* UIViewController+Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8AB1AFBB0C90067C3AF /* UIViewController+Record.m */; };
-		3E14C8B01AFBB0C90067C3AF /* VOVCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8AD1AFBB0C90067C3AF /* VOVCManager.m */; };
 		3E14C8B31AFC754D0067C3AF /* VOFavoriteMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8B21AFC754D0067C3AF /* VOFavoriteMainController.m */; };
 		3E14C8B61AFC755D0067C3AF /* VOFavoriteDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8B51AFC755D0067C3AF /* VOFavoriteDetailController.m */; };
 		3E14C8B91AFC756D0067C3AF /* VORecentsMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E14C8B81AFC756D0067C3AF /* VORecentsMainController.m */; };
@@ -28,6 +25,9 @@
 		3E22C86B1B8576B60081CE6E /* VOXibViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E22C8691B8576B60081CE6E /* VOXibViewController.m */; };
 		3E22C86C1B8576B60081CE6E /* VOXibViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E22C86A1B8576B60081CE6E /* VOXibViewController.xib */; };
 		3E22C86F1B85771C0081CE6E /* VOTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E22C86E1B85771C0081CE6E /* VOTableViewController.m */; };
+		3EC5705B1C117BB40008CFD1 /* NSObject+Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EC570561C117BB40008CFD1 /* NSObject+Runtime.m */; };
+		3EC5705C1C117BB40008CFD1 /* UIViewController+Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EC570581C117BB40008CFD1 /* UIViewController+Record.m */; };
+		3EC5705D1C117BB40008CFD1 /* VOVCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EC5705A1C117BB40008CFD1 /* VOVCManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,12 +52,6 @@
 		3E14C8971AFBB0790067C3AF /* VOVCManagerDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VOVCManagerDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E14C89C1AFBB0790067C3AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E14C89D1AFBB0790067C3AF /* VOVCManagerDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VOVCManagerDemoTests.m; sourceTree = "<group>"; };
-		3E14C8A81AFBB0C90067C3AF /* NSObject+Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Runtime.h"; sourceTree = "<group>"; };
-		3E14C8A91AFBB0C90067C3AF /* NSObject+Runtime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Runtime.m"; sourceTree = "<group>"; };
-		3E14C8AA1AFBB0C90067C3AF /* UIViewController+Record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Record.h"; sourceTree = "<group>"; };
-		3E14C8AB1AFBB0C90067C3AF /* UIViewController+Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Record.m"; sourceTree = "<group>"; };
-		3E14C8AC1AFBB0C90067C3AF /* VOVCManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOVCManager.h; sourceTree = "<group>"; };
-		3E14C8AD1AFBB0C90067C3AF /* VOVCManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VOVCManager.m; sourceTree = "<group>"; };
 		3E14C8B11AFC754D0067C3AF /* VOFavoriteMainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOFavoriteMainController.h; sourceTree = "<group>"; };
 		3E14C8B21AFC754D0067C3AF /* VOFavoriteMainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VOFavoriteMainController.m; sourceTree = "<group>"; };
 		3E14C8B41AFC755D0067C3AF /* VOFavoriteDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOFavoriteDetailController.h; sourceTree = "<group>"; };
@@ -80,6 +74,12 @@
 		3E22C86A1B8576B60081CE6E /* VOXibViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VOXibViewController.xib; sourceTree = "<group>"; };
 		3E22C86D1B85771C0081CE6E /* VOTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOTableViewController.h; sourceTree = "<group>"; };
 		3E22C86E1B85771C0081CE6E /* VOTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VOTableViewController.m; sourceTree = "<group>"; };
+		3EC570551C117BB40008CFD1 /* NSObject+Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Runtime.h"; sourceTree = "<group>"; };
+		3EC570561C117BB40008CFD1 /* NSObject+Runtime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Runtime.m"; sourceTree = "<group>"; };
+		3EC570571C117BB40008CFD1 /* UIViewController+Record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Record.h"; sourceTree = "<group>"; };
+		3EC570581C117BB40008CFD1 /* UIViewController+Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Record.m"; sourceTree = "<group>"; };
+		3EC570591C117BB40008CFD1 /* VOVCManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOVCManager.h; sourceTree = "<group>"; };
+		3EC5705A1C117BB40008CFD1 /* VOVCManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VOVCManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +103,7 @@
 		3E14C8751AFBB0790067C3AF = {
 			isa = PBXGroup;
 			children = (
+				3EC570541C117BB40008CFD1 /* VOVCManager */,
 				3E14C8801AFBB0790067C3AF /* VOVCManagerDemo */,
 				3E14C89A1AFBB0790067C3AF /* VOVCManagerDemoTests */,
 				3E14C87F1AFBB0790067C3AF /* Products */,
@@ -121,7 +122,6 @@
 		3E14C8801AFBB0790067C3AF /* VOVCManagerDemo */ = {
 			isa = PBXGroup;
 			children = (
-				3E14C8A71AFBB0C90067C3AF /* VOVCManager */,
 				3E14C8851AFBB0790067C3AF /* AppDelegate.h */,
 				3E14C8861AFBB0790067C3AF /* AppDelegate.m */,
 				3E14C8B11AFC754D0067C3AF /* VOFavoriteMainController.h */,
@@ -180,15 +180,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		3E14C8A71AFBB0C90067C3AF /* VOVCManager */ = {
+		3EC570541C117BB40008CFD1 /* VOVCManager */ = {
 			isa = PBXGroup;
 			children = (
-				3E14C8A81AFBB0C90067C3AF /* NSObject+Runtime.h */,
-				3E14C8A91AFBB0C90067C3AF /* NSObject+Runtime.m */,
-				3E14C8AA1AFBB0C90067C3AF /* UIViewController+Record.h */,
-				3E14C8AB1AFBB0C90067C3AF /* UIViewController+Record.m */,
-				3E14C8AC1AFBB0C90067C3AF /* VOVCManager.h */,
-				3E14C8AD1AFBB0C90067C3AF /* VOVCManager.m */,
+				3EC570551C117BB40008CFD1 /* NSObject+Runtime.h */,
+				3EC570561C117BB40008CFD1 /* NSObject+Runtime.m */,
+				3EC570571C117BB40008CFD1 /* UIViewController+Record.h */,
+				3EC570581C117BB40008CFD1 /* UIViewController+Record.m */,
+				3EC570591C117BB40008CFD1 /* VOVCManager.h */,
+				3EC5705A1C117BB40008CFD1 /* VOVCManager.m */,
 			);
 			path = VOVCManager;
 			sourceTree = "<group>";
@@ -295,18 +295,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E14C8AE1AFBB0C90067C3AF /* NSObject+Runtime.m in Sources */,
 				3E14C8B31AFC754D0067C3AF /* VOFavoriteMainController.m in Sources */,
 				3E14C8BC1AFC757C0067C3AF /* VORecentsDetailController.m in Sources */,
 				3E14C8871AFBB0790067C3AF /* AppDelegate.m in Sources */,
-				3E14C8B01AFBB0C90067C3AF /* VOVCManager.m in Sources */,
+				3EC5705B1C117BB40008CFD1 /* NSObject+Runtime.m in Sources */,
 				3E22C86B1B8576B60081CE6E /* VOXibViewController.m in Sources */,
+				3EC5705C1C117BB40008CFD1 /* UIViewController+Record.m in Sources */,
 				3E14C8C81AFC75B90067C3AF /* VOUserDetailController.m in Sources */,
 				3E14C8BF1AFC758A0067C3AF /* VOBookmarkMainController.m in Sources */,
 				3E14C8C51AFC75AA0067C3AF /* VOUserMainController.m in Sources */,
+				3EC5705D1C117BB40008CFD1 /* VOVCManager.m in Sources */,
 				3E22C86F1B85771C0081CE6E /* VOTableViewController.m in Sources */,
 				3E14C8841AFBB0790067C3AF /* main.m in Sources */,
-				3E14C8AF1AFBB0C90067C3AF /* UIViewController+Record.m in Sources */,
 				3E14C8C21AFC759B0067C3AF /* VOBookmarkDetailController.m in Sources */,
 				3E14C8B91AFC756D0067C3AF /* VORecentsMainController.m in Sources */,
 				3E14C8B61AFC755D0067C3AF /* VOFavoriteDetailController.m in Sources */,
