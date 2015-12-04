@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.name         = "VOVCManager"
   s.version      = "1.0.0"
-  s.summary      = "a ViewController manager, pop/present ViewController with ClassName."
+  s.summary      = "a ViewController manager"
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -25,6 +25,9 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
+                    ** ViewController Manager **
+                    1. Pop/Present ViewController with ClassName.
+                    2. Set ViewController properties with NSDictionary key-value.
                    DESC
 
   s.homepage     = "https://github.com/pozi119/VOVCManager"
