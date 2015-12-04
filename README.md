@@ -1,4 +1,12 @@
 # VOVCManager
+===============
+
+[![License Apache](http://img.shields.io/cocoapods/l/VOVCManager.svg?style=flat)](https://raw.githubusercontent.com/pozi119/VOVCManager/master/LICENSE)&nbsp;
+[![CocoaPods](http://img.shields.io/cocoapods/v/VOVCManager.svg?style=flat)](http://cocoapods.org/?q=VOVCManager)&nbsp;
+[![CocoaPods](http://img.shields.io/cocoapods/p/VOVCManager.svg?style=flat)](http://cocoapods.org/?q=VOVCManager)&nbsp;
+[![Support](https://img.shields.io/badge/support-iOS%206%2B%20-blue.svg?style=flat)](https://www.apple.com/nl/ios/)&nbsp;
+[![Build Status](https://travis-ci.org/ibireme/VOVCManager.svg?branch=master)](https://travis-ci.org/ibireme/VOVCManager)
+
 页面管理器:
 
 1. 跳转指定页面,只需要知道viewController的Class名,如果有storyboard,则需要指定storyboard名.
