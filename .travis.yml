@@ -3,4 +3,4 @@ xcode_project: VOVCManagerDemo.xcodeproj
 xcode_scheme: VOVCManagerDemo
 
 script:
-- xctool -project VOVCManagerDemo.xcodeproj -scheme VOVCManagerDemo build
+- xctool -project VOVCManagerDemo.xcodeproj -scheme VOVCManagerDemo build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
