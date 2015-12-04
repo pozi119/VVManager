@@ -364,7 +364,7 @@ static VOVCManager *_sharedManager;
     NSArray *curVCs = [self.currentViewController.navigationController viewControllers];
     NSMutableArray *targetVCs = [curVCs mutableCopy];
     NSMutableArray *willRemoveVCs = [NSMutableArray array];
-    [viewControllers enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [viewControllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
         if ([obj isKindOfClass:[NSString class]]) {
             [curVCs enumerateObjectsUsingBlock:^(UIViewController *vc, NSUInteger idx, BOOL *stop) {
                 if ([obj isEqualToString:NSStringFromClass([vc class])]) {
