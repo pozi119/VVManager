@@ -18,14 +18,14 @@
 
 1. 如果不需要使用URLScheme的方式,只需要在AppDelegate.m加入代码
 
-    [VOVCManager sharedManager];
+    	[VOVCManager sharedManager];
     
 2. 如果要使用URLScheme,需要在AppDelegate.m中注册想要的页面,如:
 
-    [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"favorite",
-                                                    VOVCController:@"VOFavoriteMainController",
-                                                    VOVCStoryboard:@"Main",
-                                                    VOVCISPresent:@(NO)}];
+	    [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"favorite",
+	                                                    VOVCController:@"VOFavoriteMainController",
+	                                                    VOVCStoryboard:@"Main",
+	                                                    VOVCISPresent:@(NO)}];
                                                     
 3. 使用storyboard,请设置每个ViewController的Storyboard ID和对应的Class名一致.
 
