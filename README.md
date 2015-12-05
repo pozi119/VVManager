@@ -17,7 +17,7 @@
 pod 'VOVCManager'
 ```
 * 手动导入:
-- 将`VOVCManager`文件夹所有源码拽入项目
+  将`VOVCManager`文件夹所有源码拽入项目
 
 ##使用
 * 在需要的文件中导入头文件,通常在pch文件中导入 
