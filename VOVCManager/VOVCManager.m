@@ -148,8 +148,8 @@ static VOVCManager *_sharedManager;
 - (void)removeViewController:(UIViewController *)viewController{
     if ([viewController isKindOfClass:[UIViewController class]] &&
         [self.viewControllers containsObject:viewController]) {
-        [self.viewControllers removeObject:viewController];
         [self printPathWithTag:@"Disappear"];
+        [self.viewControllers removeObject:viewController];
         if (self.disappearExtraHandler) {
             self.disappearExtraHandler(viewController);
         }
@@ -157,17 +157,14 @@ static VOVCManager *_sharedManager;
 }
 
 #pragma mark - 打印信息
-- (void)printPathWithTag:(NSString *)tag
-{
-#if VO_DEBUG
-    NSString *paddingItems = @"";
-    for (NSUInteger i = 0; i <= self.viewControllers.count; i++)
-    {
-        paddingItems = [paddingItems stringByAppendingFormat:@"--"];
+- (void)printPathWithTag:(NSString *)tag{
+    if(self.logPageSwitch){
+        NSString *paddingItems = @"";
+        for (NSUInteger i = 0; i <= self.viewControllers.count; i++){
+            paddingItems = [paddingItems stringByAppendingFormat:@"--"];
+        }
+        NSLog(@"%@:%@> %@", tag, paddingItems, [self.viewControllers.lastObject description]);
     }
-    
-    NSLog(@"%@:%@> %@", tag, paddingItems, [self.viewControllers.lastObject description]);
-#endif
 }
 
 #pragma mark - 当前页面
@@ -364,7 +361,7 @@ static VOVCManager *_sharedManager;
     NSArray *curVCs = [self.currentViewController.navigationController viewControllers];
     NSMutableArray *targetVCs = [curVCs mutableCopy];
     NSMutableArray *willRemoveVCs = [NSMutableArray array];
-    [viewControllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
+    [viewControllers enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[NSString class]]) {
             [curVCs enumerateObjectsUsingBlock:^(UIViewController *vc, NSUInteger idx, BOOL *stop) {
                 if ([obj isEqualToString:NSStringFromClass([vc class])]) {
@@ -384,19 +381,19 @@ static VOVCManager *_sharedManager;
 }
 
 #pragma mark - 页面显示,present
-- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard{
-    [self presentViewController:aController storyboard:aStoryboard params:nil];
+- (UIViewController *)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard{
+    return [self presentViewController:aController storyboard:aStoryboard params:nil];
 }
 
-- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams{
-    [self presentViewController:aController storyboard:aStoryboard params:aParams destInNavi:YES];
+- (UIViewController *)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams{
+    return [self presentViewController:aController storyboard:aStoryboard params:aParams destInNavi:YES];
 }
 
-- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams destInNavi:(BOOL)destInNavi{
-    [self presentViewController:aController storyboard:aStoryboard params:aParams sourceWithNavi:YES destInNavi:destInNavi completion:nil];
+- (UIViewController *)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams destInNavi:(BOOL)destInNavi{
+    return [self presentViewController:aController storyboard:aStoryboard params:aParams sourceWithNavi:YES destInNavi:destInNavi completion:nil];
 }
 
-- (void)presentViewController:(NSString *)aController
+- (UIViewController *)presentViewController:(NSString *)aController
                    storyboard:(NSString *)aStoryboard
                        params:(NSDictionary *)aParams
                sourceWithNavi:(BOOL)sourceWithNavi
@@ -405,7 +402,7 @@ static VOVCManager *_sharedManager;
     return [self presentViewController:aController storyboard:aStoryboard params:aParams sourceWithNavi:sourceWithNavi destInNavi:destInNavi alpha:1 completion:completion];
 }
 
-- (void)presentViewController:(NSString *)aController
+- (UIViewController *)presentViewController:(NSString *)aController
                    storyboard:(NSString *)aStoryboard
                        params:(NSDictionary *)aParams
                sourceWithNavi:(BOOL)sourceWithNavi
@@ -413,10 +410,10 @@ static VOVCManager *_sharedManager;
                         alpha:(CGFloat)alpha
                    completion:(void (^)(void))completion{
     UIViewController *destVC = [self viewController:aController storyboard:aStoryboard params:aParams];
-    [self presentViewController:destVC sourceWithNavi:sourceWithNavi destInNavi:destInNavi alpha:alpha completion:completion];
+    return [self presentViewController:destVC sourceWithNavi:sourceWithNavi destInNavi:destInNavi alpha:alpha completion:completion];
 }
 
-- (void)presentViewController:(UIViewController *)viewController
+- (UIViewController *)presentViewController:(UIViewController *)viewController
                sourceWithNavi:(BOOL)sourceWithNavi
                    destInNavi:(BOOL)destInNavi
                         alpha:(CGFloat)alpha
@@ -432,14 +429,9 @@ static VOVCManager *_sharedManager;
             }
         }
     }
-    UIViewController *sourceVC = self.currentNaviController;
+    UIViewController *sourceVC = self.currentViewController;
     if(sourceWithNavi){
-        if (self.currentViewController.navigationController) {
-            sourceVC = self.currentViewController.navigationController;
-        }
-        else{
-            sourceVC = self.currentNaviController;
-        }
+        sourceVC = self.currentNaviController;
     }
     if (alpha < 1 && alpha >= 0) {
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
@@ -456,6 +448,7 @@ static VOVCManager *_sharedManager;
         }
     }
     [sourceVC presentViewController:destVC animated:YES completion:completion];
+    return destVC;
 }
 
 - (void)dismissViewControllerAnimated:(BOOL)animated completion:(void (^)(void))completion{

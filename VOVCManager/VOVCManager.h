@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "UIViewController+Record.h"
 
-#define VO_DEBUG 1
-
 UIKIT_EXTERN NSString const *VOVCName;
 UIKIT_EXTERN NSString const *VOVCController;
 UIKIT_EXTERN NSString const *VOVCStoryboard;
@@ -32,6 +30,8 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @return 单例对象
  */
 + (instancetype)sharedManager;
+
+@property (nonatomic, assign) BOOL logPageSwitch; /**< 打印页面切换 */
 
 @property (nonatomic, weak, readonly) UIViewController *currentViewController;          /**< 当前页面 */
 @property (nonatomic, weak, readonly) UINavigationController *currentNaviController;    /**< 当前导航 */
@@ -207,8 +207,10 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *
  *  @param aController 目标页面,请在storyboard中设置和class名相同的storyboard id
  *  @param aStoryboard 目标页面所在的storyboard
+ *
+ *  @return 目标页面
  */
-- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard  NS_AVAILABLE_IOS(5_0);
+- (UIViewController *)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  弹出模态页面，源页面和目标页面都包含在UINavigationController中(目标页面如果没有UINavigationController则会自动创建)
@@ -216,8 +218,10 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @param aController 目标页面,请在storyboard中设置和class名相同的storyboard id
  *  @param aStoryboard 目标页面所在的storyboard
  *  @param aParams     页面参数,aParams的每个key和viewController的属性对应(通过key-value方式设置)
+ *
+ *  @return 目标页面
  */
-- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams  NS_AVAILABLE_IOS(5_0);
+- (UIViewController *)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  弹出模态页面,源页面包含在UINavigationController中,若源页面不在UINavigationController中则使用页面本身
@@ -226,8 +230,10 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @param aStoryboard 目标页面所在的storyboard
  *  @param aParams     页面参数,aParams的每个key和viewController的属性对应(通过key-value方式设置)
  *  @param destInNavi  目标页面是否包含在UINavigationController中
+ *
+ *  @return 目标页面
  */
-- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams destInNavi:(BOOL)destInNavi  NS_AVAILABLE_IOS(5_0);
+- (UIViewController *)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams destInNavi:(BOOL)destInNavi  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  弹出模态页面,自定义源页面和目标页面是否包含在UINavigationController中
@@ -238,8 +244,10 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @param sourceWithNavi 是否使用源页面的UINavigationController进行弹出操作,源页面若无UINavigationController,则直接使用页面本身弹出
  *  @param destInNavi     目标页面是否包含在UINavigationController中
  *  @param completion     页面显示动画完成后的操作
+ *
+ *  @return 目标页面
  */
-- (void)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams sourceWithNavi:(BOOL)sourceWithNavi destInNavi:(BOOL)destInNavi completion:(void (^)(void))completion  NS_AVAILABLE_IOS(5_0);
+- (UIViewController *)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams sourceWithNavi:(BOOL)sourceWithNavi destInNavi:(BOOL)destInNavi completion:(void (^)(void))completion  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  弹出模态页面,自定义源页面和目标页面是否包含在UINavigationController中,自定义弹出页面背景透明度
@@ -251,8 +259,10 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @param destInNavi     目标页面是否包含在UINavigationController中
  *  @param alpha          目标页面背景透明度(0.0 - 1.0)
  *  @param completion     页面显示动画完成后的操作
+ *
+ *  @return 目标页面
  */
-- (void)presentViewController:(NSString *)aController
+- (UIViewController *)presentViewController:(NSString *)aController
                    storyboard:(NSString *)aStoryboard
                        params:(NSDictionary *)aParams
                sourceWithNavi:(BOOL)sourceWithNavi
@@ -268,8 +278,10 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @param destInNavi     目标页面是否包含在UINavigationController中
  *  @param alpha          目标页面背景透明度(0.0 - 1.0)
  *  @param completion     页面显示动画完成后的操作
+ *
+ *  @return 目标页面
  */
-- (void)presentViewController:(UIViewController *)viewController
+- (UIViewController *)presentViewController:(UIViewController *)viewController
                sourceWithNavi:(BOOL)sourceWithNavi
                    destInNavi:(BOOL)destInNavi
                         alpha:(CGFloat)alpha
