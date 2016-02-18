@@ -69,6 +69,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
 - (void)removeViewController:(UIViewController *)viewController;
 
 #pragma mark - 页面创建
+
 /**
  *  从xib,storyboard或者代码生成页面，默认无参数
  *
@@ -77,7 +78,8 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *
  *  @return 页面对象
  */
-- (UIViewController *)viewController:(NSString *)aController storyboard:(NSString *)aStoryboard  NS_AVAILABLE_IOS(5_0);
+- (UIViewController *)viewController:(NSString *)aController
+                          storyboard:(NSString *)aStoryboard  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  从xib,storyboard或者代码生成页面
@@ -88,7 +90,9 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *
  *  @return 页面对象
  */
-- (UIViewController *)viewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams  NS_AVAILABLE_IOS(5_0);
+- (UIViewController *)viewController:(NSString *)aController
+                          storyboard:(NSString *)aStoryboard
+                              params:(NSDictionary *)aParams  NS_AVAILABLE_IOS(5_0);
 
 
 #pragma mark - 页面跳转,Push
@@ -98,7 +102,8 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @param aController 目标页面,请在storyboard中设置和class名相同的storyboard id
  *  @param aStoryboard 目标页面所在的storyboard
  */
-- (void)pushController:(NSString *)aController storyboard:(NSString *)aStoryboard  NS_AVAILABLE_IOS(5_0);
+- (void)pushController:(NSString *)aController
+            storyboard:(NSString *)aStoryboard  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  页面跳转,默认有push动画
@@ -107,7 +112,9 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @param aStoryboard 目标页面所在的storyboard
  *  @param aParams     页面参数,aParams的每个key和viewController的属性对应(通过key-value方式设置)
  */
-- (void)pushController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams  NS_AVAILABLE_IOS(5_0);
+- (void)pushController:(NSString *)aController
+            storyboard:(NSString *)aStoryboard
+                params:(NSDictionary *)aParams  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  页面跳转,默认无参数
@@ -116,7 +123,9 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @param aStoryboard 目标页面所在的storyboard
  *  @param animated    是否动画
  */
-- (void)pushController:(NSString *)aController storyboard:(NSString *)aStoryboard animated:(BOOL)animated  NS_AVAILABLE_IOS(5_0);
+- (void)pushController:(NSString *)aController
+            storyboard:(NSString *)aStoryboard
+              animated:(BOOL)animated  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  页面跳转
@@ -126,7 +135,10 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @param aParams     页面参数,aParams的每个key和viewController的属性对应(通过key-value方式设置)
  *  @param animated    是否动画
  */
-- (void)pushController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams animated:(BOOL)animated  NS_AVAILABLE_IOS(5_0);
+- (void)pushController:(NSString *)aController
+            storyboard:(NSString *)aStoryboard
+                params:(NSDictionary *)aParams
+              animated:(BOOL)animated  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  页面跳转,移除中间页面
@@ -137,7 +149,11 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @param animated          是否动画
  *  @param removeControllers 要移除的页面名称数组
  */
-- (void)pushController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams animated:(BOOL)animated removeControllers:(NSArray *)removeControllers;
+- (void)pushController:(NSString *)aController
+            storyboard:(NSString *)aStoryboard
+                params:(NSDictionary *)aParams
+              animated:(BOOL)animated
+     removeControllers:(NSArray *)removeControllers;
 
 #pragma mark - 页面出栈
 /**
@@ -166,7 +182,8 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *
  *  @return 出栈页面数组
  */
-- (NSArray *)popToViewController:(NSString *)aController storyboard:(NSString *)aStoryboard  NS_AVAILABLE_IOS(5_0);
+- (NSArray *)popToViewController:(NSString *)aController
+                      storyboard:(NSString *)aStoryboard  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  页面弹出，默认有动画
@@ -177,7 +194,9 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *
  *  @return 出栈页面数组
  */
-- (NSArray *)popToViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams  NS_AVAILABLE_IOS(5_0);
+- (NSArray *)popToViewController:(NSString *)aController
+                      storyboard:(NSString *)aStoryboard
+                          params:(NSDictionary *)aParams  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  页面弹出
@@ -189,7 +208,10 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *
  *  @return 出栈页面数组
  */
-- (NSArray *)popToViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams animated:(BOOL)animated  NS_AVAILABLE_IOS(5_0);
+- (NSArray *)popToViewController:(NSString *)aController
+                      storyboard:(NSString *)aStoryboard
+                          params:(NSDictionary *)aParams
+                        animated:(BOOL)animated  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  页面弹出
@@ -199,7 +221,8 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *
  *  @return 出栈页面数组
  */
-- (NSArray *)popExcludeViewControllers:(NSArray *)viewControllers animated:(BOOL)animated;
+- (NSArray *)popExcludeViewControllers:(NSArray *)viewControllers
+                              animated:(BOOL)animated;
 
 #pragma mark - 页面显示,present
 /**
@@ -210,7 +233,8 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *
  *  @return 目标页面
  */
-- (UIViewController *)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard  NS_AVAILABLE_IOS(5_0);
+- (UIViewController *)presentViewController:(NSString *)aController
+                                 storyboard:(NSString *)aStoryboard  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  弹出模态页面，源页面和目标页面都包含在UINavigationController中(目标页面如果没有UINavigationController则会自动创建)
@@ -221,7 +245,9 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *
  *  @return 目标页面
  */
-- (UIViewController *)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams  NS_AVAILABLE_IOS(5_0);
+- (UIViewController *)presentViewController:(NSString *)aController
+                                 storyboard:(NSString *)aStoryboard
+                                     params:(NSDictionary *)aParams  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  弹出模态页面,源页面包含在UINavigationController中,若源页面不在UINavigationController中则使用页面本身
@@ -233,7 +259,10 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *
  *  @return 目标页面
  */
-- (UIViewController *)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams destInNavi:(BOOL)destInNavi  NS_AVAILABLE_IOS(5_0);
+- (UIViewController *)presentViewController:(NSString *)aController
+                                 storyboard:(NSString *)aStoryboard
+                                     params:(NSDictionary *)aParams
+                                 destInNavi:(BOOL)destInNavi  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  弹出模态页面,自定义源页面和目标页面是否包含在UINavigationController中
@@ -247,7 +276,12 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *
  *  @return 目标页面
  */
-- (UIViewController *)presentViewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams sourceWithNavi:(BOOL)sourceWithNavi destInNavi:(BOOL)destInNavi completion:(void (^)(void))completion  NS_AVAILABLE_IOS(5_0);
+- (UIViewController *)presentViewController:(NSString *)aController
+                                 storyboard:(NSString *)aStoryboard
+                                     params:(NSDictionary *)aParams
+                             sourceWithNavi:(BOOL)sourceWithNavi
+                                 destInNavi:(BOOL)destInNavi
+                                 completion:(void (^)(void))completion  NS_AVAILABLE_IOS(5_0);
 
 /**
  *  弹出模态页面,自定义源页面和目标页面是否包含在UINavigationController中,自定义弹出页面背景透明度
@@ -263,12 +297,13 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @return 目标页面
  */
 - (UIViewController *)presentViewController:(NSString *)aController
-                   storyboard:(NSString *)aStoryboard
-                       params:(NSDictionary *)aParams
-               sourceWithNavi:(BOOL)sourceWithNavi
-                   destInNavi:(BOOL)destInNavi
-                        alpha:(CGFloat)alpha
-                   completion:(void (^)(void))completion;
+                                 storyboard:(NSString *)aStoryboard
+                                     params:(NSDictionary *)aParams
+                             sourceWithNavi:(BOOL)sourceWithNavi
+                                 destInNavi:(BOOL)destInNavi
+                                      alpha:(CGFloat)alpha
+                                   animated:(CGFloat)animated
+                                 completion:(void (^)(void))completion;
 
 /**
  *  弹出模态页面,自定义源页面和目标页面是否包含在UINavigationController中,自定义弹出页面背景透明度
@@ -282,10 +317,11 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @return 目标页面
  */
 - (UIViewController *)presentViewController:(UIViewController *)viewController
-               sourceWithNavi:(BOOL)sourceWithNavi
-                   destInNavi:(BOOL)destInNavi
-                        alpha:(CGFloat)alpha
-                   completion:(void (^)(void))completion;
+                             sourceWithNavi:(BOOL)sourceWithNavi
+                                 destInNavi:(BOOL)destInNavi
+                                      alpha:(CGFloat)alpha
+                                   animated:(CGFloat)animated
+                                 completion:(void (^)(void))completion;
 
 #pragma mark - 页面回收
 /**
