@@ -233,7 +233,7 @@ static VOVCManager *_sharedManager;
         }
     }
     else{
-        viewController = [[clazz alloc] initWithNibName:aController bundle:nil];
+        viewController = [[clazz alloc] initWithNibName:nil bundle:nil];
         if(!viewController){
             viewController = [[clazz alloc] init];
         }
