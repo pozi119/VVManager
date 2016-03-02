@@ -14,37 +14,45 @@
 ##安装
 * cocoapods导入: 
 ```ruby
-pod 'VOVCManager'
+pod 'VOVCManager', '~> 2.0.1-beta1'
 ```
 * 手动导入:
   将`VOVCManager`文件夹所有源码拽入项目
 
+##更新说明
+* 1.将[VOVCManager sharedManager]缩减为VVManager类方法,使代码更简单
+* 2.缩减API,使用VVHop来表示页面跳转的各种参数. VVHop支持链式编程,使代码更容易阅读
+* 3.修改页面URL的方式,1.0.0版本将不可用.使用VVHop替换之前的VOVCRegistration
+* 4.原VOVCManager跳转页面的API仍可用,但会有过期警告.
+
 ##使用
-* 在需要的文件中导入头文件,通常在pch文件中导入 
+* 在需要的文件中导入头文件,通常在pch文件中导入,使用+load的方式初始化单例.
 ```objc
 #import "VOVCManager.h"
 ```
-* 在 (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 运行阶段加入以下代码
+* 需要使用URLScheme跳转,请在 (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 运行阶段加入以下代码
 ```objc
-[VOVCManager sharedManager]; /* 不需要使用URLScheme的方式 */
-``` 
-* 如果要使用URLScheme,需要在AppDelegate.m中注册想要的页面,如:
-```objc
-/* 需要使用URLScheme跳转 */
-[[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"favorite",
-                                                VOVCController:@"VOFavoriteMainController",
-                                                VOVCStoryboard:@"Main",
-                                                VOVCISPresent:@(NO)}];
+    VVHop *hop1 = [VVHop hopWithMethod:VVHop_Pop aStoryboard:@"Main" aController:@"VOFavoriteMainController"];
+    [VVManager registerURLPath:@"favorite" forHop:hop1];
 ```
+
 * 使用storyboard,请设置每个ViewController的Storyboard ID和对应的Class名一致.
 
 * 其他使用请参考注释.
 
 * VOVCFavoriteMainController中有使用代码进行跳转的示例.
 ```objc
-[[VOVCManager sharedManager] pushController:@"VOFavoriteDetailController" storyboard:@"Main"];
-[[VOVCManager sharedManager] pushController:@"VORecentsDetailController" storyboard:@"Main" params:@{@"recentText": @"From VOFavoriteMainController"}];
-[[VOVCManager sharedManager] pushController:@"VOTableViewController" storyboard:@"Second"];
+    VVHop *hop = [VVHop makeHop:^(VVHop *hop) {
+        hop.hop_method(VVHop_Push)
+        .hop_aStoryboard(@"Main")
+        .hop_aController(@"VORecentsDetailController")
+        .hop_parameters(@{@"recentText": @"From VOFavoriteMainController"});
+    }];
+    [VVManager showPageWithHop:hop];
 ```
 
-
+* 也可以不使用链式编程
+```objc
+    VVHop *hop = [VVHop hopWithMethod:VVHop_Push aStoryboard:@"Second" aController:@"VOTableViewController"];
+    [VVManager showPageWithHop:hop];
+```
