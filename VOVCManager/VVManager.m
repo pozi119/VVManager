@@ -171,8 +171,17 @@
     else{
         UINavigationController *nav = [VVManager currentNaviController];
         NSArray *existVCs = nav.viewControllers;
-        if ([existVCs containsObject:hop.controller]) {
-            [nav popToViewController:hop.controller animated:hop.animated];
+        UIViewController *destVC = nil;
+        for (UIViewController *vc in existVCs) {
+            NSString *vcName = NSStringFromClass([vc class]);
+            NSString *hopName = NSStringFromClass([hop.controller class]);
+            if ([vcName isEqualToString:hopName]) {
+                destVC = vc;
+            }
+        }
+        if (destVC) {
+            [VVHop setParams:hop.parameters forObject:destVC];
+            [nav popToViewController:destVC animated:hop.animated];
         }
         else{
             [VVManager pushWithHop:hop];
@@ -213,7 +222,7 @@
             [destVC.view sendSubviewToBack:imageView];
         }
     }
-    
+    [VVHop setParams:hop.parameters forObject:destVC];
     [sourceVC presentViewController:destVC animated:hop.animated completion:hop.completion];
 }
 

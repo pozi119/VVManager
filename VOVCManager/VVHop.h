@@ -83,4 +83,7 @@ typedef NS_ENUM(NSUInteger, VVHopMethod) {
 
 + (UIViewController *)viewController:(NSString *)aController storyboard:(NSString *)aStoryboard params:(NSDictionary *)aParams;
 
+#pragma mark - 工具类
++ (void)setParams:(NSDictionary *)params forObject:(NSObject *)obj;
+
 @end

@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "VOVCManager"
-  s.version      = "2.0.1-beta"
+  s.version      = "2.0.0-beta1"
   s.summary      = "a ViewController manager"
 
   # This description is used to generate tags and improve search results.
@@ -82,7 +82,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/pozi119/VOVCManager.git", :tag => "2.0.1-beta" }
+  s.source       = { :git => "https://github.com/pozi119/VOVCManager.git", :tag => "2.0.0-beta1" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
