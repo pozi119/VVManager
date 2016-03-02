@@ -26,18 +26,32 @@
 }
 
 - (IBAction)showDetail {
-    VVHop *hop = [VVHop hopWithMethod:VVHop_Push aStoryboard:@"Main" aController:@"VOFavoriteDetailController"];
+    VVHop *hop = [VVHop makeHop:^(VVHop *hop) {
+        hop.hop_method(VVHop_Push)
+        .hop_aStoryboard(@"Main")
+        .hop_aController(@"VOFavoriteDetailController");
+    }];
     [VVManager showPageWithHop:hop];
 }
 
 - (IBAction)toRecents {
-    VVHop *hop = [VVHop hopWithMethod:VVHop_Push aStoryboard:@"Main" aController:@"VOFavoriteDetailController" parameters:@{@"recentText": @"From VOFavoriteMainController"}];
+    VVHop *hop = [VVHop makeHop:^(VVHop *hop) {
+        hop.hop_method(VVHop_Push)
+        .hop_aStoryboard(@"Main")
+        .hop_aController(@"VORecentsDetailController")
+        .hop_parameters(@{@"recentText": @"From VOFavoriteMainController"});
+    }];
     [VVManager showPageWithHop:hop];
 }
 
 
 - (IBAction)toBookmarks {
-    VVHop *hop = [VVHop hopWithMethod:VVHop_Push aStoryboard:@"Main" aController:@"VOBookmarkDetailController" parameters:@{@"bookmarkText": @"From VOFavoriteMainController"}];
+    VVHop *hop = [VVHop makeHop:^(VVHop *hop) {
+        hop.hop_method(VVHop_Push)
+        .hop_aStoryboard(@"Main")
+        .hop_aController(@"VOBookmarkDetailController")
+        .hop_parameters(@{@"bookmarkText": @"From VOFavoriteMainController"});
+    }];
     [VVManager showPageWithHop:hop];
 }
 

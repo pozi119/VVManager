@@ -21,7 +21,94 @@
     }
     return self;
 }
+#pragma mark 链式编程,设置属性
 
+- (VVHop *(^)(VVHopMethod method))hop_method{
+    return ^(VVHopMethod method) {
+        self.method = method;
+        return self;
+    };
+}
+
+- (VVHop *(^)(UIViewController *controller))hop_controller{
+    return ^(UIViewController *controller) {
+        self.controller = controller;
+        return self;
+    };
+}
+
+- (VVHop *(^)(NSString *aController))hop_aController{
+    return ^(NSString *aController) {
+        self.aController = aController;
+        return self;
+    };
+}
+
+- (VVHop *(^)(NSString *aStoryboard))hop_aStoryboard{
+    return ^(NSString *aStoryboard) {
+        self.aStoryboard = aStoryboard;
+        return self;
+    };
+}
+
+- (VVHop *(^)(NSDictionary *parameters))hop_parameters{
+    return ^(NSDictionary *parameters) {
+        self.parameters = parameters;
+        return self;
+    };
+}
+
+- (VVHop *(^)(void (^completion)()))hop_completion{
+    return ^(void (^completion)()) {
+        self.completion = completion;
+        return self;
+    };
+}
+
+- (VVHop *(^)(BOOL sourceInNavi))hop_sourceInNavi{
+    return ^(BOOL sourceInNavi) {
+        self.soruceInNav = sourceInNavi;
+        return self;
+    };
+}
+
+- (VVHop *(^)(BOOL destInNavi))hop_destInNavi{
+    return ^(BOOL destInNavi) {
+        self.destInNav = destInNavi;
+        return self;
+    };
+}
+
+- (VVHop *(^)(CGFloat alpha))hop_alpha{
+    return ^(CGFloat alpha) {
+        self.alpha = alpha;
+        return self;
+    };
+}
+
+- (VVHop *(^)(BOOL animated))hop_animated{
+    return ^(BOOL animated) {
+        self.animated = animated;
+        return self;
+    };
+}
+
+- (VVHop *(^)(NSArray *removeVCs))hop_removeVCs{
+    return ^(NSArray *removeVCs) {
+        self.removeVCs = removeVCs;
+        return self;
+    };
+}
+
++ (instancetype)makeHop:(void(^)(VVHop *hop))block{
+    VVHop *hop = [[VVHop alloc] init];
+    if (block) {
+        block(hop);
+    }
+    return hop;
+}
+
+#pragma mark - 工厂方法
 + (instancetype)hopWithDictionary:(NSDictionary *)dic{
     VVHop *hop = [[VVHop alloc] init];
     [dic enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL * stop) {

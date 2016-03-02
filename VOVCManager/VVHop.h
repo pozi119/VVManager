@@ -35,7 +35,34 @@ typedef NS_ENUM(NSUInteger, VVHopMethod) {
 @property (nonatomic, assign) BOOL    animated;        /**< 页面跳转时是否有动画 */
 @property (nonatomic, strong) NSArray *removeVCs;      /**< Push模式,push完成后要移除的页面 */
 
-#pragma mark 创建方式
+#pragma mark 链式编程,设置属性
+
+- (VVHop *(^)(VVHopMethod method))hop_method;
+
+- (VVHop *(^)(UIViewController *controller))hop_controller;
+
+- (VVHop *(^)(NSString *aController))hop_aController;
+
+- (VVHop *(^)(NSString *aStoryboard))hop_aStoryboard;
+
+- (VVHop *(^)(NSDictionary *parameters))hop_parameters;
+
+- (VVHop *(^)(void (^completion)()))hop_completion;
+
+- (VVHop *(^)(BOOL sourceInNavi))hop_sourceInNavi;
+
+- (VVHop *(^)(BOOL destInNavi))hop_destInNavi;
+
+- (VVHop *(^)(CGFloat alpha))hop_alpha;
+
+- (VVHop *(^)(BOOL animated))hop_animated;
+
+- (VVHop *(^)(NSArray *removeVCs))hop_removeVCs;
+
++ (instancetype)makeHop:(void(^)(VVHop *hop))block;
+
+#pragma mark - 工厂方法
+
 + (instancetype)hopWithDictionary:(NSDictionary *)dic;
 
 + (instancetype)hopWithMethod:(VVHopMethod)method
