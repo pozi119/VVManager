@@ -26,7 +26,8 @@
 }
 
 - (IBAction)showDetail {
-    [[VOVCManager sharedManager] pushController:@"VOUserDetailController" storyboard:@"Main" params:@{@"userText": @"From VOUserMainController"}];
+    VVHop *hop = [VVHop hopWithMethod:VVHop_Push aStoryboard:@"Main" aController:@"VOUserDetailController" parameters:@{@"userText": @"From VOUserMainController"}];
+    [VVManager showPageWithHop:hop];
 }
 
 

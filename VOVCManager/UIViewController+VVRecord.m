@@ -6,9 +6,9 @@
 //  Copyright (c) 2015年 ValoLee. All rights reserved.
 //
 
-#import "UIViewController+Record.h"
-#import "VOVCManager.h"
-#import "NSObject+Runtime.h"
+#import "UIViewController+VVRecord.h"
+#import "VVManager.h"
+#import "NSObject+VVRuntime.h"
 
 @implementation UIViewController (Record)
 
@@ -17,12 +17,12 @@ static BOOL isRecorded;
 #pragma mark - 替代方法
 
 -(void)recordViewDidAppear:(BOOL)animated{
-    [[VOVCManager sharedManager] addViewController:self];
+    [VVManager addViewController:self];
     [self recordViewDidAppear:animated];
 }
 
 -(void)recordViewDidDisappear:(BOOL)animated{
-    [[VOVCManager sharedManager] removeViewController:self];
+    [VVManager removeViewController:self];
     [self recordViewDidDisappear:animated];
 }
 

@@ -26,56 +26,69 @@
 }
 
 - (IBAction)showDetail {
-    [[VOVCManager sharedManager] pushController:@"VOFavoriteDetailController" storyboard:@"Main"];
+    VVHop *hop = [VVHop hopWithMethod:VVHop_Push aStoryboard:@"Main" aController:@"VOFavoriteDetailController"];
+    [VVManager showPageWithHop:hop];
 }
 
 - (IBAction)toRecents {
-    [[VOVCManager sharedManager] pushController:@"VORecentsDetailController" storyboard:@"Main" params:@{@"recentText": @"From VOFavoriteMainController"}];
+    VVHop *hop = [VVHop hopWithMethod:VVHop_Push aStoryboard:@"Main" aController:@"VOFavoriteDetailController" parameters:@{@"recentText": @"From VOFavoriteMainController"}];
+    [VVManager showPageWithHop:hop];
 }
 
+
 - (IBAction)toBookmarks {
-    [[VOVCManager sharedManager] pushController:@"VOBookmarkDetailController" storyboard:@"Main" params:@{@"bookmarkText": @"From VOFavoriteMainController"} animated:NO];
-    
+    VVHop *hop = [VVHop hopWithMethod:VVHop_Push aStoryboard:@"Main" aController:@"VOBookmarkDetailController" parameters:@{@"bookmarkText": @"From VOFavoriteMainController"}];
+    [VVManager showPageWithHop:hop];
 }
 
 - (IBAction)toUser {
-    [[VOVCManager sharedManager] pushController:@"VOUserDetailController" storyboard:@"Main"  params:@{@"userText": @"From VOFavoriteMainController", @"animated":@(YES)}];
+    VVHop *hop = [VVHop hopWithMethod:VVHop_Push aStoryboard:@"Main" aController:@"VOUserDetailController" parameters:@{@"userText": @"From VOFavoriteMainController"}];
+    [VVManager showPageWithHop:hop];
 }
 
 - (IBAction)toSecond {
-    [[VOVCManager sharedManager] pushController:@"VOTableViewController" storyboard:@"Second"];
+    VVHop *hop = [VVHop hopWithMethod:VVHop_Push aStoryboard:@"Second" aController:@"VOTableViewController"];
+    [VVManager showPageWithHop:hop];
 }
 
 - (IBAction)toXib {
-    [[VOVCManager sharedManager] pushController:@"VOXibViewController" storyboard:nil  params:@{@"bgColor": [UIColor colorWithRed:0.106 green:0.733 blue:0.384 alpha:1.000]}];
+    VVHop *hop = [VVHop hopWithMethod:VVHop_Push aStoryboard:nil aController:@"VOXibViewController" parameters:@{@"bgColor": [UIColor colorWithRed:0.106 green:0.733 blue:0.384 alpha:1.000]}];
+    [VVManager showPageWithHop:hop];
 }
 
 - (IBAction)presentDetail {
-    [[VOVCManager sharedManager] presentViewController:@"VOFavoriteDetailController" storyboard:@"Main" params:@{@"favText": @"Present"}];
+    VVHop *hop = [VVHop hopWithMethod:VVHop_Present aStoryboard:@"Main" aController:@"VOFavoriteDetailController" parameters:@{@"favText": @"Present"}];
+    [VVManager showPageWithHop:hop];
 }
 
 
 - (IBAction)presentRecents {
-    [[VOVCManager sharedManager] presentViewController:@"VORecentsDetailController" storyboard:@"Main" params:@{@"recentText": @"Present"}];
+    VVHop *hop = [VVHop hopWithMethod:VVHop_Present aStoryboard:@"Main" aController:@"VORecentsDetailController" parameters:@{@"recentText": @"Present"}];
+    [VVManager showPageWithHop:hop];
 }
 
 - (IBAction)presentBookmarks {
-    [[VOVCManager sharedManager] presentViewController:@"VOBookmarkDetailController" storyboard:@"Main" params:@{@"bookmarkText": @"Present"} destInNavi:NO];
-    
+    VVHop *hop = [VVHop hopWithMethod:VVHop_Present aStoryboard:@"Main" aController:@"VOBookmarkDetailController" parameters:@{@"bookmarkText": @"Present"}];
+    [VVManager showPageWithHop:hop];
 }
 
 - (IBAction)presentUser {
-    [[VOVCManager sharedManager] presentViewController:@"VOUserDetailController" storyboard:@"Main"  params:@{@"userText": @"Present", @"animated":@(YES)} sourceWithNavi:YES destInNavi:YES completion:^{
+    VVHop *hop = [VVHop hopWithMethod:VVHop_Present aStoryboard:@"Main" aController:@"VOUserDetailController" parameters:@{@"userText": @"Present"}];
+    hop.destInNav = YES;
+    [hop setCompletion:^{
         NSLog(@"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
     }];
+    [VVManager showPageWithHop:hop];
 }
 
 - (IBAction)presentSecond {
-    [[VOVCManager sharedManager] presentViewController:@"VOTableViewController" storyboard:@"Second"];
+    VVHop *hop = [VVHop hopWithMethod:VVHop_Present aStoryboard:@"Second" aController:@"VOTableViewController"];
+    [VVManager showPageWithHop:hop];
 }
 
 - (IBAction)presentXib {
-    [[VOVCManager sharedManager] presentViewController:@"VOXibViewController" storyboard:nil  params:@{@"bgColor": [UIColor colorWithRed:0.689 green:0.272 blue:0.733 alpha:1.000]}];
+    VVHop *hop = [VVHop hopWithMethod:VVHop_Present aStoryboard:nil aController:@"VOXibViewController" parameters:@{@"bgColor": [UIColor colorWithRed:0.689 green:0.272 blue:0.733 alpha:1.000]}];
+    [VVManager showPageWithHop:hop];
 }
 
 

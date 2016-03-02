@@ -31,7 +31,8 @@
 }
 
 - (IBAction)showDetail {
-    [[VOVCManager sharedManager] pushController:@"VORecentsDetailController" storyboard:@"Main" params:@{@"recentText": @"From VORecentsMainController"}];
+    VVHop *hop = [VVHop hopWithMethod:VVHop_Push aStoryboard:@"Main" aController:@"VORecentsDetailController" parameters:@{@"recentText": @"From VORecentsMainController"}];
+    [VVManager showPageWithHop:hop];
 }
 
 

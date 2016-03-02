@@ -7,12 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIViewController+Record.h"
+#import "VVManager.h"
 
-UIKIT_EXTERN NSString const *VOVCName;
-UIKIT_EXTERN NSString const *VOVCController;
-UIKIT_EXTERN NSString const *VOVCStoryboard;
-UIKIT_EXTERN NSString const *VOVCISPresent;
+#define VVMDeprecated(desc) NS_DEPRECATED_IOS(1_0_0, 2_0_0, desc)
 
 /**
  * @brief 页面管理器
@@ -29,14 +26,14 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *
  *  @return 单例对象
  */
-+ (instancetype)sharedManager;
++ (instancetype)sharedManager VVMDeprecated("不再使用");
 
 @property (nonatomic, assign) BOOL logPageSwitch; /**< 打印页面切换 */
 
-@property (nonatomic, weak, readonly) UIViewController *currentViewController;          /**< 当前页面 */
-@property (nonatomic, weak, readonly) UINavigationController *currentNaviController;    /**< 当前导航 */
-@property (nonatomic, weak, readonly) UIViewController *rootViewController;             /**< 第一个页面 */
-@property (nonatomic, weak, readonly) UINavigationController *rootNavigationController; /**< 第一个导航 */
+@property (nonatomic, weak, readonly) UIViewController *currentViewController VVMDeprecated("使用[VVManager currentViewController]");          /**< 当前页面 */
+@property (nonatomic, weak, readonly) UINavigationController *currentNaviController VVMDeprecated("使用[VVManager currentNaviController]");    /**< 当前导航 */
+@property (nonatomic, weak, readonly) UIViewController *rootViewController VVMDeprecated("使用[VVManager rootViewController]");             /**< 第一个页面 */
+@property (nonatomic, weak, readonly) UINavigationController *rootNavigationController VVMDeprecated("使用[VVManager rootNavigationController]"); /**< 第一个导航 */
 
 /**
  *  在viewDidAppear要处理的通用额外操作,比如统计页面是否显示
@@ -44,7 +41,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *
  *  @param appearExtraHandler 额外操作
  */
--(void)setAppearExtraHandler:(void (^)(UIViewController *))appearExtraHandler;
+- (void)setAppearExtraHandler:(void (^)(UIViewController *))appearExtraHandler VVMDeprecated("使用[VVManager setAppearExtraHandler:]");
 
 /**
  *  在viewDidDisappear要处理的通用额外操作,比如统计页面是否退出
@@ -52,21 +49,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *
  *  @param dissappearExtraHandler 额外操作
  */
-- (void)setDisappearExtraHandler:(void (^)(UIViewController *))disappearExtraHandler;
-
-/**
- *  添加一个ViewController到管理器,主要提供给UIViewController+Record使用
- *
- *  @param viewController 要添加的ViewController
- */
-- (void)addViewController:(UIViewController *)viewController;
-
-/**
- *  从管理器删除一个ViewController
- *
- *  @param viewController 要删除的ViewController,主要提供给UIViewController+Record使用
- */
-- (void)removeViewController:(UIViewController *)viewController;
+- (void)setDisappearExtraHandler:(void (^)(UIViewController *))disappearExtraHandler VVMDeprecated("使用[VVManager setDisappearExtraHandler:]");
 
 #pragma mark - 页面创建
 
@@ -79,7 +62,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @return 页面对象
  */
 - (UIViewController *)viewController:(NSString *)aController
-                          storyboard:(NSString *)aStoryboard  NS_AVAILABLE_IOS(5_0);
+                          storyboard:(NSString *)aStoryboard VVMDeprecated("使用[VVHop viewController:storyboard:params:]");
 
 /**
  *  从xib,storyboard或者代码生成页面
@@ -92,7 +75,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  */
 - (UIViewController *)viewController:(NSString *)aController
                           storyboard:(NSString *)aStoryboard
-                              params:(NSDictionary *)aParams  NS_AVAILABLE_IOS(5_0);
+                              params:(NSDictionary *)aParams VVMDeprecated("使用[VVHop viewController:storyboard:params:]");
 
 
 #pragma mark - 页面跳转,Push
@@ -103,7 +86,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @param aStoryboard 目标页面所在的storyboard
  */
 - (void)pushController:(NSString *)aController
-            storyboard:(NSString *)aStoryboard  NS_AVAILABLE_IOS(5_0);
+            storyboard:(NSString *)aStoryboard VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 /**
  *  页面跳转,默认有push动画
@@ -114,7 +97,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  */
 - (void)pushController:(NSString *)aController
             storyboard:(NSString *)aStoryboard
-                params:(NSDictionary *)aParams  NS_AVAILABLE_IOS(5_0);
+                params:(NSDictionary *)aParams VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 /**
  *  页面跳转,默认无参数
@@ -125,7 +108,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  */
 - (void)pushController:(NSString *)aController
             storyboard:(NSString *)aStoryboard
-              animated:(BOOL)animated  NS_AVAILABLE_IOS(5_0);
+              animated:(BOOL)animated VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 /**
  *  页面跳转
@@ -138,7 +121,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
 - (void)pushController:(NSString *)aController
             storyboard:(NSString *)aStoryboard
                 params:(NSDictionary *)aParams
-              animated:(BOOL)animated  NS_AVAILABLE_IOS(5_0);
+              animated:(BOOL)animated VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 /**
  *  页面跳转,移除中间页面
@@ -153,7 +136,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
             storyboard:(NSString *)aStoryboard
                 params:(NSDictionary *)aParams
               animated:(BOOL)animated
-     removeControllers:(NSArray *)removeControllers;
+     removeControllers:(NSArray *)removeControllers VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 #pragma mark - 页面出栈
 /**
@@ -163,7 +146,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *
  *  @return 被弹出的页面
  */
-- (UIViewController *)popViewControllerAnimated:(BOOL)animated  NS_AVAILABLE_IOS(5_0);
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 /**
  *  弹出到根页面
@@ -172,7 +155,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *
  *  @return 出栈后的页面数组
  */
-- (NSArray *)popToRootViewControllerAnimated:(BOOL)animated  NS_AVAILABLE_IOS(5_0);
+- (NSArray *)popToRootViewControllerAnimated:(BOOL)animated VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 /**
  *  页面弹出，默认无参数，默认有动画
@@ -183,7 +166,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @return 出栈页面数组
  */
 - (NSArray *)popToViewController:(NSString *)aController
-                      storyboard:(NSString *)aStoryboard  NS_AVAILABLE_IOS(5_0);
+                      storyboard:(NSString *)aStoryboard VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 /**
  *  页面弹出，默认有动画
@@ -196,7 +179,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  */
 - (NSArray *)popToViewController:(NSString *)aController
                       storyboard:(NSString *)aStoryboard
-                          params:(NSDictionary *)aParams  NS_AVAILABLE_IOS(5_0);
+                          params:(NSDictionary *)aParams VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 /**
  *  页面弹出
@@ -211,7 +194,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
 - (NSArray *)popToViewController:(NSString *)aController
                       storyboard:(NSString *)aStoryboard
                           params:(NSDictionary *)aParams
-                        animated:(BOOL)animated  NS_AVAILABLE_IOS(5_0);
+                        animated:(BOOL)animated VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 /**
  *  页面弹出
@@ -222,7 +205,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @return 出栈页面数组
  */
 - (NSArray *)popExcludeViewControllers:(NSArray *)viewControllers
-                              animated:(BOOL)animated;
+                              animated:(BOOL)animated VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 #pragma mark - 页面显示,present
 /**
@@ -234,7 +217,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @return 目标页面
  */
 - (UIViewController *)presentViewController:(NSString *)aController
-                                 storyboard:(NSString *)aStoryboard  NS_AVAILABLE_IOS(5_0);
+                                 storyboard:(NSString *)aStoryboard VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 /**
  *  弹出模态页面，源页面和目标页面都包含在UINavigationController中(目标页面如果没有UINavigationController则会自动创建)
@@ -247,7 +230,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  */
 - (UIViewController *)presentViewController:(NSString *)aController
                                  storyboard:(NSString *)aStoryboard
-                                     params:(NSDictionary *)aParams  NS_AVAILABLE_IOS(5_0);
+                                     params:(NSDictionary *)aParams VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 /**
  *  弹出模态页面,源页面包含在UINavigationController中,若源页面不在UINavigationController中则使用页面本身
@@ -262,7 +245,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
 - (UIViewController *)presentViewController:(NSString *)aController
                                  storyboard:(NSString *)aStoryboard
                                      params:(NSDictionary *)aParams
-                                 destInNavi:(BOOL)destInNavi  NS_AVAILABLE_IOS(5_0);
+                                 destInNavi:(BOOL)destInNavi VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 /**
  *  弹出模态页面,自定义源页面和目标页面是否包含在UINavigationController中
@@ -281,7 +264,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
                                      params:(NSDictionary *)aParams
                              sourceWithNavi:(BOOL)sourceWithNavi
                                  destInNavi:(BOOL)destInNavi
-                                 completion:(void (^)(void))completion  NS_AVAILABLE_IOS(5_0);
+                                 completion:(void (^)(void))completion VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 /**
  *  弹出模态页面,自定义源页面和目标页面是否包含在UINavigationController中,自定义弹出页面背景透明度
@@ -303,7 +286,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
                                  destInNavi:(BOOL)destInNavi
                                       alpha:(CGFloat)alpha
                                    animated:(CGFloat)animated
-                                 completion:(void (^)(void))completion;
+                                 completion:(void (^)(void))completion VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 /**
  *  弹出模态页面,自定义源页面和目标页面是否包含在UINavigationController中,自定义弹出页面背景透明度
@@ -321,7 +304,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
                                  destInNavi:(BOOL)destInNavi
                                       alpha:(CGFloat)alpha
                                    animated:(CGFloat)animated
-                                 completion:(void (^)(void))completion;
+                                 completion:(void (^)(void))completion VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 #pragma mark - 页面回收
 /**
@@ -330,7 +313,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @param animated   是否有动画效果
  *  @param completion 动画完成后的操作
  */
-- (void)dismissViewControllerAnimated:(BOOL)animated completion:(void (^)(void))completion  NS_AVAILABLE_IOS(5_0);
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(void (^)(void))completion VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 /**
  *  回收当前页面
@@ -339,14 +322,14 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @param animated   是否有动画效果
  *  @param completion 动画完成后的操作
  */
-- (void)dismissViewControllerWithNavi:(BOOL)withNavi animated:(BOOL)animated  completion:(void (^)(void))completion  NS_AVAILABLE_IOS(5_0);
+- (void)dismissViewControllerWithNavi:(BOOL)withNavi animated:(BOOL)animated  completion:(void (^)(void))completion VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 /**
  *  回收页面至有UINavigationController的页面
  *
  *  @param completion 回收完成后的操作
  */
-- (void)dismissToNavigationControllerCompletion:(void (^)(void))completion;
+- (void)dismissToNavigationControllerCompletion:(void (^)(void))completion VVMDeprecated("使用[VVManager showPageWithMethod:hop:]");
 
 
 #pragma mark - 页面URL管理
@@ -356,7 +339,7 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @param spec 页面信息
  *
  */
-- (void)registerWithSpec:(NSDictionary *)spec;
+- (void)registerWithSpec:(NSDictionary *)spec VVMDeprecated("使用[VVManager registerURLPath:forHop:]");
 
 /**
  *  注册页面路径
@@ -366,14 +349,14 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *  @param aStoryboard nil表示从xib或者代码创建,否则从制定的Storyboard创建
  *  @param isPresent   显示方式,是-present,否-push
  */
-- (void)registerName:(NSString *)name forViewController:(NSString *)aController inStoryboard:(NSString *)aStoryboard isPresent:(BOOL)isPresent;
+- (void)registerName:(NSString *)name forViewController:(NSString *)aController inStoryboard:(NSString *)aStoryboard isPresent:(BOOL)isPresent VVMDeprecated("使用[VVManager registerURLPath:forHop:]");
 
 /**
  *  取消注册页面路径
  *
  *  @param name 要取消的页面注册名
  */
-- (void)cancelRegisterName:(NSString *)name;
+- (void)cancelRegisterName:(NSString *)name VVMDeprecated("使用[VVManager deregisterURLPath:]");
 
 /**
  *  处理页面跳转URL
@@ -382,6 +365,6 @@ UIKIT_EXTERN NSString const *VOVCISPresent;
  *
  *  @return 是否处理成功
  */
-- (BOOL)handleOpenURL:(NSURL *)url  NS_AVAILABLE_IOS(5_0);
+- (BOOL)handleOpenURL:(NSURL *)url  VVMDeprecated("使用[VVManager handleOpenURL:]");
 
 @end

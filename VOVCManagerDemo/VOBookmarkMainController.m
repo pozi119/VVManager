@@ -26,7 +26,8 @@
 }
 
 - (IBAction)showDetail {
-    [[VOVCManager sharedManager] pushController:@"VOBookmarkDetailController" storyboard:@"Main" params:@{@"bookmarkText": @"From VOBookmarkMainController"}];
+    VVHop *hop = [VVHop hopWithMethod:VVHop_Push aStoryboard:@"Main" aController:@"VOBookmarkDetailController" parameters:@{@"bookmarkText": @"From VOBookmarkMainController"}];
+    [VVManager showPageWithHop:hop];
 }
 
 /*

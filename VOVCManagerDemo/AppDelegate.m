@@ -18,7 +18,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [VOVCManager sharedManager];
     [self registerViewControllers];
     return YES;
 }
@@ -46,10 +45,16 @@
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
-    return [[VOVCManager sharedManager] handleOpenURL:url];
+    return [VVManager handleOpenURL:url];
 }
 
 - (void)registerViewControllers{
+    VVHop *hop1 = [VVHop hopWithMethod:VVHop_Pop aStoryboard:@"Main" aController:@"VOFavoriteMainController"];
+    [VVManager registerURLPath:@"favorite" forHop:hop1];
+    VVHop *hop2 = [VVHop hopWithMethod:VVHop_Pop aStoryboard:@"Main" aController:@"VOFavoriteDetailController"];
+    [VVManager registerURLPath:@"favoriteDetail" forHop:hop2];
+    
+/*  VVMDeprecated("注册方式变更")
     [[VOVCManager sharedManager] registerWithSpec:@{VOVCName:@"favorite",
                                                     VOVCController:@"VOFavoriteMainController",
                                                     VOVCStoryboard:@"Main",
@@ -82,6 +87,7 @@
                                                     VOVCController:@"VOUserDetailController",
                                                     VOVCStoryboard:@"Main",
                                                     VOVCISPresent:@(NO)}];
+ */
 }
 
 @end

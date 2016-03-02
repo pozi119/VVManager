@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIViewController (Record)
+@interface UIViewController (VVRecord)
 /**
  *  开始记录ViewController的跳转
  */

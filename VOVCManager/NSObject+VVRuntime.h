@@ -1,5 +1,5 @@
 //
-//  NSObject+Runtime.h
+//  NSObject+VVRuntime.h
 //  IOS-Categories
 //
 //  Created by Jakey on 14/12/30.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSObject (Runtime)
+@interface NSObject (VVRuntime)
 
 /**
  Exchange methods' implementations.
