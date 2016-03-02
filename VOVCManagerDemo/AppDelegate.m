@@ -48,6 +48,14 @@
     return [VVManager handleOpenURL:url];
 }
 
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options{
+    return [VVManager handleOpenURL:url];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    return [VVManager handleOpenURL:url];
+}
+
 - (void)registerViewControllers{
     VVHop *hop1 = [VVHop hopWithMethod:VVHop_Pop aStoryboard:@"Main" aController:@"VOFavoriteMainController"];
     [VVManager registerURLPath:@"favorite" forHop:hop1];

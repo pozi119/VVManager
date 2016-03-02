@@ -298,7 +298,8 @@
     }
 
     hop.parameters = params;
-    
+    hop.controller = nil;  //将上一次调用该hop的controller置为nil,以便重新生成
+
     /** 4. 打开对应页面 */
     [[self class] showPageWithHop:hop];
     
