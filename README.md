@@ -14,7 +14,7 @@
 ##安装
 * cocoapods导入: 
 ```ruby
-pod 'VOVCManager', '~> 2.0.1-beta1'
+pod 'VOVCManager', '~> 2.0.1'
 ```
 * 手动导入:
   将`VOVCManager`文件夹所有源码拽入项目
