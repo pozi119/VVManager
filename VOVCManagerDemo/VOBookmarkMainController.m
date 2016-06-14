@@ -7,7 +7,7 @@
 //
 
 #import "VOBookmarkMainController.h"
-#import "VOVCManager.h"
+#import "VVManager.h"
 
 @interface VOBookmarkMainController ()
 

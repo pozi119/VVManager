@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "VOVCManager.h"
+#import "VVManager.h"
 
 @interface AppDelegate ()
 

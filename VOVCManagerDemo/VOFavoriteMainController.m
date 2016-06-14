@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 valo. All rights reserved.
 //
 
-#import "VOVCManager.h"
+#import "VVManager.h"
 #import "VOFavoriteMainController.h"
 
 @interface VOFavoriteMainController ()

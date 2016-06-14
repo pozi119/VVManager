@@ -29,7 +29,6 @@
 		3E93E42F1C11818A00C489F0 /* VOVCManager.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 3E93E42E1C11818A00C489F0 /* VOVCManager.podspec */; };
 		3EC5705B1C117BB40008CFD1 /* NSObject+VVRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EC570561C117BB40008CFD1 /* NSObject+VVRuntime.m */; };
 		3EC5705C1C117BB40008CFD1 /* UIViewController+VVRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EC570581C117BB40008CFD1 /* UIViewController+VVRecord.m */; };
-		3EC5705D1C117BB40008CFD1 /* VOVCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EC5705A1C117BB40008CFD1 /* VOVCManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,8 +73,6 @@
 		3EC570561C117BB40008CFD1 /* NSObject+VVRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+VVRuntime.m"; sourceTree = "<group>"; };
 		3EC570571C117BB40008CFD1 /* UIViewController+VVRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+VVRecord.h"; sourceTree = "<group>"; };
 		3EC570581C117BB40008CFD1 /* UIViewController+VVRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+VVRecord.m"; sourceTree = "<group>"; };
-		3EC570591C117BB40008CFD1 /* VOVCManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOVCManager.h; sourceTree = "<group>"; };
-		3EC5705A1C117BB40008CFD1 /* VOVCManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VOVCManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,8 +173,6 @@
 				3EC570561C117BB40008CFD1 /* NSObject+VVRuntime.m */,
 				3EC570571C117BB40008CFD1 /* UIViewController+VVRecord.h */,
 				3EC570581C117BB40008CFD1 /* UIViewController+VVRecord.m */,
-				3EC570591C117BB40008CFD1 /* VOVCManager.h */,
-				3EC5705A1C117BB40008CFD1 /* VOVCManager.m */,
 				3E4CCBF51C7D57FB00B14D46 /* VVHop.h */,
 				3E4CCBF61C7D57FB00B14D46 /* VVHop.m */,
 				3E4CCBF81C7D5B2800B14D46 /* VVManager.h */,
@@ -269,7 +264,6 @@
 				3E14C8C81AFC75B90067C3AF /* VOUserDetailController.m in Sources */,
 				3E14C8BF1AFC758A0067C3AF /* VOBookmarkMainController.m in Sources */,
 				3E14C8C51AFC75AA0067C3AF /* VOUserMainController.m in Sources */,
-				3EC5705D1C117BB40008CFD1 /* VOVCManager.m in Sources */,
 				3E22C86F1B85771C0081CE6E /* VOTableViewController.m in Sources */,
 				3E14C8841AFBB0790067C3AF /* main.m in Sources */,
 				3E14C8C21AFC759B0067C3AF /* VOBookmarkDetailController.m in Sources */,

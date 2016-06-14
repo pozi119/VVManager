@@ -7,7 +7,7 @@
 //
 
 #import "VOUserMainController.h"
-#import "VOVCManager.h"
+#import "VVManager.h"
 
 @interface VOUserMainController ()
 

@@ -7,7 +7,7 @@
 //
 
 #import "VORecentsMainController.h"
-#import "VOVCManager.h"
+#import "VVManager.h"
 
 @interface VORecentsMainController ()
 
