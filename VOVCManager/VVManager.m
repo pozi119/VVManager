@@ -148,19 +148,24 @@
     UINavigationController *nav = [VVManager currentNaviController];
     [nav pushViewController:hop.controller animated:hop.animated];
     if (hop.removeVCs.count > 0) {
-        NSMutableArray *existVCs = nav.viewControllers.mutableCopy;
-        __block NSMutableArray *willRemoveVCs = @[].mutableCopy;
-        [existVCs enumerateObjectsUsingBlock:^(UIViewController *vc, NSUInteger idx, BOOL *stop) {
-            NSString *vcName = NSStringFromClass([vc class]);
-            for (NSString *rvc in hop.removeVCs) {
-                if ([rvc isEqualToString:vcName]) {
-                    [willRemoveVCs addObject:vc];
-                    break;
+        // Fix bug, 2016.7.18, by Valo.
+        // 1. 延迟1s之后再移除指定页面,防止连续快速push时,移除了要显示的页面.
+        // 2. 若页面跳转动画时间过长,请单独处理移除页面的操作.
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSMutableArray *existVCs = nav.viewControllers.mutableCopy;
+            __block NSMutableArray *willRemoveVCs = @[].mutableCopy;
+            [existVCs enumerateObjectsUsingBlock:^(UIViewController *vc, NSUInteger idx, BOOL *stop) {
+                NSString *vcName = NSStringFromClass([vc class]);
+                for (NSString *rvc in hop.removeVCs) {
+                    if ([rvc isEqualToString:vcName]) {
+                        [willRemoveVCs addObject:vc];
+                        break;
+                    }
                 }
-            }
-        }];
-        [existVCs removeObjectsInArray:willRemoveVCs];
-        nav.viewControllers = existVCs;
+            }];
+            [existVCs removeObjectsInArray:willRemoveVCs];
+            nav.viewControllers = existVCs;
+        });
     }
 }
 
