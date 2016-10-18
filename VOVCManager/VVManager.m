@@ -17,6 +17,10 @@
 @property (nonatomic, strong) NSArray *ignoredViewControllers; /**< 排除记录的页面 */
 @property (nonatomic, copy) void (^appearExtraHandler)(UIViewController *);
 @property (nonatomic, copy) void (^disappearExtraHandler)(UIViewController *);
+
+@property (nonatomic, strong) NSArray *flagControllers;        /**< 标记App已完成加载的页面 */
+@property (nonatomic, assign) BOOL  appearFlag;                /**< 标记App是否完成加载 */
+@property (nonatomic, strong) VVHop *planHop;                  /**< 准备显示的页面 */
 @end
 
 @implementation VVManager
@@ -55,19 +59,22 @@
     [[VVManager sharedManager] addViewController:viewController];
 }
 
-- (void)addViewController:(UIViewController *)viewController{
-    if ([viewController isKindOfClass:[UIViewController class]]) {
-        NSString *vcStr = NSStringFromClass([viewController class]);
-        __block BOOL ignore = NO;
-        [self.ignoredViewControllers enumerateObjectsUsingBlock:^(NSString *ignoredVC, NSUInteger idx, BOOL *stop) {
-            if ([ignoredVC isEqualToString:vcStr]) {
-                ignore = YES;
-                *stop  = YES;
-            }
-        }];
-        if (ignore) {
-            return;
++ (BOOL)utilsArray:(NSArray *)array containsString:(NSString *)string{
+    BOOL contain = NO;
+    for (NSString *str in array) {
+        if ([str isEqualToString:string]){
+            contain = YES;
+            break;
         }
+    }
+    return contain;
+}
+
+- (void)addViewController:(UIViewController *)viewController{
+    NSString *vcStr = NSStringFromClass([viewController class]);
+    if ([viewController isKindOfClass:[UIViewController class]]) {
+        BOOL ignore = [[self class] utilsArray:_ignoredViewControllers containsString:vcStr];
+        if (ignore) { return;}
         [self.viewControllers addObject:viewController];
         [self printPathWithTag:@"Appear   "];
         if(self.appearExtraHandler){
@@ -76,6 +83,14 @@
     }
     if ([viewController isKindOfClass:[UINavigationController class]]) {
         [self.naviControllers addObject:viewController];
+    }
+    if(!_appearFlag){
+        if (_flagControllers.count == 0 || [[self class] utilsArray:_flagControllers containsString:vcStr]) {
+            _appearFlag = YES;
+            if (_planHop) {
+                [[self class] showPageWithHop:_planHop];
+            }
+        }
     }
 }
 
@@ -118,6 +133,9 @@
     [VVManager sharedManager].disappearExtraHandler = disappearExtraHandler;
 }
 
++ (void)setFlagControllers:(NSArray *)flagControllers{
+    [VVManager sharedManager].flagControllers = flagControllers;
+}
 #pragma mark - 获取页面
 + (UIViewController *)currentViewController{
     return [VVManager sharedManager].viewControllers.lastObject;
@@ -277,7 +295,7 @@
     }
     BOOL match = NO;
     for (NSString *scheme in schemes) {
-        if ([scheme isEqualToString:components.scheme]) {
+        if ([scheme.lowercaseString isEqualToString:components.scheme.lowercaseString]) {
             match = YES;
             break;
         }
@@ -315,7 +333,12 @@
     hop.controller = nil;  //将上一次调用该hop的controller置为nil,以便重新生成
 
     /** 4. 打开对应页面 */
-    [[self class] showPageWithHop:hop];
+    if (![VVManager sharedManager].appearFlag) {
+        [VVManager sharedManager].planHop = hop;
+    }
+    else{
+        [[self class] showPageWithHop:hop];
+    }
     
     return YES;
 }

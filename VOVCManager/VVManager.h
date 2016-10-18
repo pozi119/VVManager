@@ -51,6 +51,13 @@
  */
 + (void)removeViewController:(UIViewController *)viewController;
 
+/**
+ *  当App加载完这些页面中的任意一个,表示App已经加载,可执行页面跳转操作
+ *
+ *  @param flagControllers 标记App已经成功加载的页面名
+ */
++ (void)setFlagControllers:(NSArray *)flagControllers;
+
 #pragma mark - 获取页面
 /**
  *  当前页面
