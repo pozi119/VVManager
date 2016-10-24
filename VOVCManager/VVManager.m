@@ -163,6 +163,7 @@
     if (!hop.controller) {
         return;
     }
+    hop.controller.hidesBottomBarWhenPushed = !hop.showBottomBarWhenPushed;
     UINavigationController *nav = [VVManager currentNaviController];
     [nav pushViewController:hop.controller animated:hop.animated];
     if (hop.removeVCs.count > 0) {

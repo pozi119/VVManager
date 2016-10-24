@@ -34,6 +34,8 @@ typedef NS_ENUM(NSUInteger, VVHopMethod) {
 @property (nonatomic, assign) CGFloat alpha;           /**< Present模式,目标页面背景透明度,默认为1.0 */
 @property (nonatomic, assign) BOOL    animated;        /**< 页面跳转时是否有动画 */
 @property (nonatomic, strong) NSArray *removeVCs;      /**< Push模式,push完成后要移除的页面 */
+@property (nonatomic, assign) BOOL    showBottomBarWhenPushed;        /**< 页面跳转后是否显示底部Tabbar,默认不显示 */
+
 
 #pragma mark 链式编程,设置属性
 
@@ -58,6 +60,8 @@ typedef NS_ENUM(NSUInteger, VVHopMethod) {
 - (VVHop *(^)(BOOL animated))hop_animated;
 
 - (VVHop *(^)(NSArray *removeVCs))hop_removeVCs;
+
+- (VVHop *(^)(BOOL showBottomBarWhenPushed))hop_showBottomBarWhenPushed;
 
 + (instancetype)makeHop:(void(^)(VVHop *hop))block;
 
