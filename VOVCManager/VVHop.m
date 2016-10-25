@@ -108,6 +108,13 @@
     return hop;
 }
 
+- (VVHop *(^)(BOOL))hop_showBottomBarWhenPushed{
+    return ^(BOOL showBottomBarWhenPushed) {
+        self.showBottomBarWhenPushed = showBottomBarWhenPushed;
+        return self;
+    };
+}
+
 #pragma mark - 工厂方法
 + (instancetype)hopWithDictionary:(NSDictionary *)dic{
     VVHop *hop = [[VVHop alloc] init];
