@@ -25,7 +25,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "150"
             endingLineNumber = "150"
-            landmarkName = "+hopWithMethod:aStoryboard:aController:parameters:"
+            landmarkName = "+hopWithMethod:aStoryboard:aController:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

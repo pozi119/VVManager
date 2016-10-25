@@ -1,4 +1,4 @@
-# VOVCManager(页面管理器) 2.0.2
+# VOVCManager(页面管理器) 2.0.5
 
 [![License Apache](http://img.shields.io/cocoapods/l/VOVCManager.svg?style=flat)](https://raw.githubusercontent.com/pozi119/VOVCManager/master/LICENSE)&nbsp;
 [![CocoaPods](http://img.shields.io/cocoapods/v/VOVCManager.svg?style=flat)](http://cocoapods.org/?q=VOVCManager)&nbsp;
@@ -19,7 +19,7 @@ pod 'VOVCManager'
   将`VOVCManager`文件夹所有源码拽入项目
 
 ##更新说明
-* 移除VOVCManager相关的旧版API
+* VVHop新增参数showBottomBarWhenPushed, 用于控制Push页面底部的UITabBar是否显示.
 
 ##使用
 * 在需要的文件中导入头文件,通常在pch文件中导入,使用+load的方式初始化单例.
@@ -38,13 +38,12 @@ pod 'VOVCManager'
 
 * VOVCFavoriteMainController中有使用代码进行跳转的示例.
 ```objc
-    VVHop *hop = [VVHop makeHop:^(VVHop *hop) {
+    [VVManager showPageWithHop:[VVHop makeHop:^(VVHop *hop) {
         hop.hop_method(VVHop_Push)
         .hop_aStoryboard(@"Main")
         .hop_aController(@"VORecentsDetailController")
         .hop_parameters(@{@"recentText": @"From VOFavoriteMainController"});
-    }];
-    [VVManager showPageWithHop:hop];
+    }]];
 ```
 
 * 也可以不使用链式编程
