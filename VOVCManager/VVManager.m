@@ -10,17 +10,16 @@
 #import "UIViewController+VVRecord.h"
 
 @interface VVManager ()
-@property (nonatomic, assign) BOOL prtDebugInfo;               /**< 打印页面切换 */
-@property (nonatomic, strong) NSMutableArray *viewControllers; /**< 记录当前的页面层次 */
-@property (nonatomic, strong) NSMutableArray *naviControllers; /**< 记录当前的页面层次 */
-@property (nonatomic, strong) NSMutableDictionary *urlRegList; /**< 页面url注册 */
-@property (nonatomic, strong) NSArray *ignoredViewControllers; /**< 排除记录的页面 */
-@property (nonatomic, copy) void (^appearExtraHandler)(UIViewController *);
-@property (nonatomic, copy) void (^disappearExtraHandler)(UIViewController *);
-
-@property (nonatomic, strong) NSArray *flagControllers;        /**< 标记App已完成加载的页面 */
-@property (nonatomic, assign) BOOL  appearFlag;                /**< 标记App是否完成加载 */
-@property (nonatomic, strong) VVHop *planHop;                  /**< 准备显示的页面 */
+@property (nonatomic, assign) BOOL  prtDebugInfo;              ///< 打印页面切换
+@property (nonatomic, assign) BOOL  appearFlag;                ///< 标记App是否完成加载
+@property (nonatomic, strong) VVHop *planHop;                  ///< 准备显示的页面
+@property (nonatomic, strong) NSArray *ignoredViewControllers; ///< 排除记录的页面
+@property (nonatomic, strong) NSArray *flagControllers;        ///< 标记App已完成加载的页面
+@property (nonatomic, strong) NSMutableDictionary *urlRegList; ///< 页面url注册
+@property (nonatomic, weak  ) UIViewController *currentViewController;          ///< 当前页面
+@property (nonatomic, weak  ) UINavigationController *currentNaviController;    ///< 当前导航页面
+@property (nonatomic, copy  ) void (^appearExtraHandler)(UIViewController *);
+@property (nonatomic, copy  ) void (^disappearExtraHandler)(UIViewController *);
 @end
 
 @implementation VVManager
@@ -41,22 +40,20 @@
 }
 
 - (void)commonInit{
-    self.viewControllers = @[].mutableCopy;
-    self.naviControllers = @[].mutableCopy;
-    self.urlRegList      = @{}.mutableCopy;
-    self.ignoredViewControllers  = @[@"UIInputWindowController",
-                                     @"UICompatibilityInputViewController",
-                                     @"UIKeyboardCandidateGridCollectionViewController",
-                                     @"UIInputViewController",
-                                     @"UIApplicationRotationFollowingControllerNoTouches",
-                                     @"_UIRemoteInputViewController",
-                                     @"PLUICameraViewController"];
+    _urlRegList = @{}.mutableCopy;
+    _ignoredViewControllers  = @[@"UIInputWindowController",
+                                 @"UICompatibilityInputViewController",
+                                 @"UIKeyboardCandidateGridCollectionViewController",
+                                 @"UIInputViewController",
+                                 @"UIApplicationRotationFollowingControllerNoTouches",
+                                 @"_UIRemoteInputViewController",
+                                 @"PLUICameraViewController"];
     [UIViewController record];
 }
 
 #pragma mark - UIViewController+VVRecord使用
-+ (void)addViewController:(UIViewController *)viewController{
-    [[VVManager sharedManager] addViewController:viewController];
++ (void)addViewController:(__weak UIViewController *)viewController{
+    [[VVManager sharedManager] appearController:viewController];
 }
 
 + (BOOL)utilsArray:(NSArray *)array containsString:(NSString *)string{
@@ -70,19 +67,19 @@
     return contain;
 }
 
-- (void)addViewController:(UIViewController *)viewController{
+- (void)appearController:(__weak UIViewController *)viewController{
     NSString *vcStr = NSStringFromClass([viewController class]);
     if ([viewController isKindOfClass:[UIViewController class]]) {
         BOOL ignore = [[self class] utilsArray:_ignoredViewControllers containsString:vcStr];
         if (ignore) { return;}
-        [self.viewControllers addObject:viewController];
-        [self printPathWithTag:@"Appear   "];
+        self.currentViewController = viewController;
+        [self printPathWithTag:@"Appear   " controller:viewController];
         if(self.appearExtraHandler){
             self.appearExtraHandler(viewController);
         }
     }
     if ([viewController isKindOfClass:[UINavigationController class]]) {
-        [self.naviControllers addObject:viewController];
+        self.currentNaviController = (UINavigationController *)viewController;
     }
     if(!_appearFlag){
         if (_flagControllers.count == 0 || [[self class] utilsArray:_flagControllers containsString:vcStr]) {
@@ -94,18 +91,14 @@
     }
 }
 
-+ (void)removeViewController:(UIViewController *)viewController{
-    [[VVManager sharedManager] removeViewController:viewController];
++ (void)removeViewController:(__weak UIViewController *)viewController{
+    [[VVManager sharedManager] disappearController:viewController];
 }
 
-- (void)removeViewController:(UIViewController *)viewController{
-    if ([viewController isKindOfClass:[UIViewController class]] &&
-        [self.viewControllers containsObject:viewController]) {
-        [self printPathWithTag:@"Disappear"];
-        [self.viewControllers removeObject:viewController];
-        if (self.disappearExtraHandler) {
-            self.disappearExtraHandler(viewController);
-        }
+- (void)disappearController:(__weak UIViewController *)viewController{
+    [self printPathWithTag:@"Disappear" controller:viewController];
+    if (self.disappearExtraHandler) {
+        self.disappearExtraHandler(viewController);
     }
 }
 
@@ -114,22 +107,18 @@
     [VVManager sharedManager].prtDebugInfo = prtDebugInfo;
 }
 
-- (void)printPathWithTag:(NSString *)tag{
+- (void)printPathWithTag:(NSString *)tag controller:(__weak UIViewController *)controller{
     if(self.prtDebugInfo){
-        NSString *paddingItems = @"";
-        for (NSUInteger i = 0; i <= self.viewControllers.count; i++){
-            paddingItems = [paddingItems stringByAppendingFormat:@"--"];
-        }
-        NSLog(@"%@:%@> %@", tag, paddingItems, [self.viewControllers.lastObject description]);
+        NSLog(@"%@:--> %@", tag, controller.description);
     }
 }
 
 #pragma mark - 设置页面跳转时的额外操作
-+ (void)setAppearExtraHandler:(void (^)(UIViewController *))appearExtraHandler{
++ (void)setAppearExtraHandler:(void (^)(__weak UIViewController *))appearExtraHandler{
     [VVManager sharedManager].appearExtraHandler = appearExtraHandler;
 }
 
-+ (void)setDisappearExtraHandler:(void (^)(UIViewController *))disappearExtraHandler{
++ (void)setDisappearExtraHandler:(void (^)(__weak UIViewController *))disappearExtraHandler{
     [VVManager sharedManager].disappearExtraHandler = disappearExtraHandler;
 }
 
@@ -137,25 +126,48 @@
     [VVManager sharedManager].flagControllers = flagControllers;
 }
 #pragma mark - 获取页面
-+ (UIViewController *)currentViewController{
-    return [VVManager sharedManager].viewControllers.lastObject;
++ (__weak UIViewController *)currentViewController{
+    return [VVManager sharedManager].currentViewController;
 }
 
-+ (UINavigationController *)currentNaviController{
-    if (self.currentViewController.navigationController) {
-        return [VVManager currentViewController].navigationController;
+- (__weak UINavigationController *)currentNaviController{
+    if (_currentViewController.navigationController) {
+        return _currentViewController.navigationController;
     }
-    else{
-        return [VVManager sharedManager].naviControllers.lastObject;
+    return  _currentNaviController;
+}
+
++ (__weak UINavigationController *)currentNaviController{
+    return [VVManager sharedManager].currentNaviController;
+}
+
+- (__weak UIViewController *)rootViewController{
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    UIViewController *controller = window.rootViewController;
+    if ([controller isKindOfClass:[UINavigationController class]]) {
+        controller = [(UINavigationController *)controller viewControllers].firstObject;
     }
+    if ([controller isKindOfClass:[UITabBarController class]]) {
+        controller = [(UITabBarController *)controller viewControllers].firstObject;
+    }
+    return controller;
 }
 
-+ (UIViewController *)rootViewController{
-    return [VVManager sharedManager].viewControllers.firstObject;
++ (__weak UIViewController *)rootViewController{
+    return [VVManager sharedManager].rootViewController;
 }
 
-+ (UINavigationController *)rootNavigationController{
-    return [VVManager sharedManager].naviControllers.firstObject;
+- (__weak UINavigationController *)rootNavigationController{
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    UIViewController *controller = window.rootViewController;
+    if ([controller isKindOfClass:[UINavigationController class]]) {
+        return (UINavigationController *)controller;
+    }
+    return controller.navigationController;
+}
+
++ (__weak UINavigationController *)rootNavigationController{
+    return [VVManager sharedManager].rootNavigationController;
 }
 
 #pragma mark - 页面跳转

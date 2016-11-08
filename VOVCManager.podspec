@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "VOVCManager"
-  s.version      = "2.0.5"
+  s.version      = "2.0.6"
   s.summary      = "a ViewController manager"
   s.description  = <<-DESC
                     ** ViewController Manager **
@@ -12,6 +12,6 @@ Pod::Spec.new do |s|
   s.license      = "Apache 2.0"
   s.author       = { "pozi119" => "pozi119@163.com" }
   s.platform     = :ios, "7.0"
-  s.source       = { :git => "https://github.com/pozi119/VOVCManager.git", :tag => "2.0.5" }
+  s.source       = { :git => "https://github.com/pozi119/VOVCManager.git", :tag => s.version.to_s }
   s.source_files  = "VOVCManager", "VOVCManager/*.{h,m}"
 end

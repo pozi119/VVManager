@@ -17,12 +17,14 @@ static BOOL isRecorded;
 #pragma mark - 替代方法
 
 -(void)recordViewDidAppear:(BOOL)animated{
-    [VVManager addViewController:self];
+    __weak typeof(self) wSelf = self;
+    [VVManager addViewController:wSelf];
     [self recordViewDidAppear:animated];
 }
 
 -(void)recordViewDidDisappear:(BOOL)animated{
-    [VVManager removeViewController:self];
+    __weak typeof(self) wSelf = self;
+    [VVManager removeViewController:wSelf];
     [self recordViewDidDisappear:animated];
 }
 

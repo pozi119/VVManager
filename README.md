@@ -1,4 +1,4 @@
-# VOVCManager(页面管理器) 2.0.5
+# VOVCManager(页面管理器) 2.0.6
 
 [![License Apache](http://img.shields.io/cocoapods/l/VOVCManager.svg?style=flat)](https://raw.githubusercontent.com/pozi119/VOVCManager/master/LICENSE)&nbsp;
 [![CocoaPods](http://img.shields.io/cocoapods/v/VOVCManager.svg?style=flat)](http://cocoapods.org/?q=VOVCManager)&nbsp;
@@ -7,7 +7,6 @@
 
 ##功能说明
 * 跳转指定页面,只需要知道viewController的Class名,如果有storyboard,则需要指定storyboard名.
-* 无需添加基类.
 * 支持URLScheme跳转指定页面.
 
 ##安装
@@ -19,7 +18,7 @@ pod 'VOVCManager'
   将`VOVCManager`文件夹所有源码拽入项目
 
 ##更新说明
-* VVHop新增参数showBottomBarWhenPushed, 用于控制Push页面底部的UITabBar是否显示.
+* V2.0.6 修改获取rootViewController,rootNaviController,currentViewController,currentNaviController的方式.以保证修改```objc [UIApplication sharedApplication].keywindow ```后,rootViewController和rootNaviController的准确性.
 
 ##使用
 * 在需要的文件中导入头文件,通常在pch文件中导入,使用+load的方式初始化单例.
@@ -28,8 +27,7 @@ pod 'VOVCManager'
 ```
 * 需要使用URLScheme跳转,请在 (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 运行阶段加入以下代码
 ```objc
-    VVHop *hop1 = [VVHop hopWithMethod:VVHop_Pop aStoryboard:@"Main" aController:@"VOFavoriteMainController"];
-    [VVManager registerURLPath:@"favorite" forHop:hop1];
+    [VVManager registerURLPath:@"favorite" forHop:[VVHop hopWithMethod:VVHop_Pop aStoryboard:@"Main" aController:@"VOFavoriteMainController"]];
 ```
 
 * 使用storyboard,请设置每个ViewController的Storyboard ID和对应的Class名一致.
@@ -48,6 +46,5 @@ pod 'VOVCManager'
 
 * 也可以不使用链式编程
 ```objc
-    VVHop *hop = [VVHop hopWithMethod:VVHop_Push aStoryboard:@"Second" aController:@"VOTableViewController"];
-    [VVManager showPageWithHop:hop];
+    [VVManager showPageWithHop:[VVHop hopWithMethod:VVHop_Push aStoryboard:@"Second" aController:@"VOTableViewController"]];
 ```

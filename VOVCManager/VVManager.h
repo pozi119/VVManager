@@ -26,7 +26,7 @@
  *
  *  @param appearExtraHandler 额外操作
  */
-+ (void)setAppearExtraHandler:(void (^)(UIViewController *))appearExtraHandler;
++ (void)setAppearExtraHandler:(void (^)(__weak UIViewController *))appearExtraHandler;
 
 /**
  *  在viewDidDisappear要处理的通用额外操作,比如统计页面停留时间等
@@ -34,7 +34,7 @@
  *
  *  @param disappearExtraHandler 额外操作
  */
-+ (void)setDisappearExtraHandler:(void (^)(UIViewController *))disappearExtraHandler;
++ (void)setDisappearExtraHandler:(void (^)(__weak UIViewController *))disappearExtraHandler;
 
 #pragma mark - 仅供 UIViewController+VVRecord 使用
 /**
@@ -42,14 +42,14 @@
  *
  *  @param viewController 当前页面
  */
-+ (void)addViewController:(UIViewController *)viewController;
++ (void)addViewController:(__weak UIViewController *)viewController;
 
 /**
  *  移除页面
  *
  *  @param viewController 当前页面
  */
-+ (void)removeViewController:(UIViewController *)viewController;
++ (void)removeViewController:(__weak UIViewController *)viewController;
 
 /**
  *  当App加载完这些页面中的任意一个,表示App已经加载,可执行页面跳转操作
@@ -64,28 +64,28 @@
  *
  *  @return 当前页面
  */
-+ (UIViewController *)currentViewController;
++ (__weak UIViewController *)currentViewController;
 
 /**
  *  当前导航
  *
  *  @return 当前导航
  */
-+ (UINavigationController *)currentNaviController;
++ (__weak UINavigationController *)currentNaviController;
 
 /**
  *  第一个页面
  *
  *  @return 第一个页面
  */
-+ (UIViewController *)rootViewController;
++ (__weak UIViewController *)rootViewController;
 
 /**
  *  第一个导航
  *
  *  @return 第一个导航
  */
-+ (UINavigationController *)rootNavigationController;
++ (__weak UINavigationController *)rootNavigationController;
 
 #pragma mark - 页面跳转
 
