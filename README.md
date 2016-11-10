@@ -1,4 +1,4 @@
-# VOVCManager(页面管理器) 2.0.6
+# VOVCManager(页面管理器) 2.0.7
 
 [![License Apache](http://img.shields.io/cocoapods/l/VOVCManager.svg?style=flat)](https://raw.githubusercontent.com/pozi119/VOVCManager/master/LICENSE)&nbsp;
 [![CocoaPods](http://img.shields.io/cocoapods/v/VOVCManager.svg?style=flat)](http://cocoapods.org/?q=VOVCManager)&nbsp;
@@ -18,7 +18,7 @@ pod 'VOVCManager'
   将`VOVCManager`文件夹所有源码拽入项目
 
 ##更新说明
-* V2.0.6 修改获取rootViewController,rootNaviController,currentViewController,currentNaviController的方式.以保证修改```objc [UIApplication sharedApplication].keywindow ```后,rootViewController和rootNaviController的准确性.
+* V2.0.7 修复2.0.6改动导致获取当前页不准确的bug
 
 ##使用
 * 在需要的文件中导入头文件,通常在pch文件中导入,使用+load的方式初始化单例.
@@ -27,6 +27,7 @@ pod 'VOVCManager'
 ```
 * 需要使用URLScheme跳转,请在 (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 运行阶段加入以下代码
 ```objc
+    // 在Safari mobile或者其他支持URLScheme的浏览器中打开 app://favorite 即可打开该页面
     [VVManager registerURLPath:@"favorite" forHop:[VVHop hopWithMethod:VVHop_Pop aStoryboard:@"Main" aController:@"VOFavoriteMainController"]];
 ```
 

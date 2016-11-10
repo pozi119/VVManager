@@ -16,8 +16,10 @@
 @property (nonatomic, strong) NSArray *ignoredViewControllers; ///< 排除记录的页面
 @property (nonatomic, strong) NSArray *flagControllers;        ///< 标记App已完成加载的页面
 @property (nonatomic, strong) NSMutableDictionary *urlRegList; ///< 页面url注册
-@property (nonatomic, weak  ) UIViewController *currentViewController;          ///< 当前页面
-@property (nonatomic, weak  ) UINavigationController *currentNaviController;    ///< 当前导航页面
+@property (nonatomic, strong) NSMapTable *viewControllers;     ///< 已加载的页面
+@property (nonatomic, strong) NSMapTable *naviControllers;     ///< 已加载的导航页
+@property (nonatomic, assign) NSInteger  vcCnt;                ///< 页面计数(仅用于NSMapTable的key)
+@property (nonatomic, assign) NSInteger  naviCnt;              ///< 导航页面计数(仅用于NSMapTable的key)
 @property (nonatomic, copy  ) void (^appearExtraHandler)(UIViewController *);
 @property (nonatomic, copy  ) void (^disappearExtraHandler)(UIViewController *);
 @end
@@ -41,6 +43,8 @@
 
 - (void)commonInit{
     _urlRegList = @{}.mutableCopy;
+    _viewControllers = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsWeakMemory valueOptions:NSPointerFunctionsWeakMemory];
+    _naviControllers = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsWeakMemory valueOptions:NSPointerFunctionsWeakMemory];
     _ignoredViewControllers  = @[@"UIInputWindowController",
                                  @"UICompatibilityInputViewController",
                                  @"UIKeyboardCandidateGridCollectionViewController",
@@ -72,14 +76,14 @@
     if ([viewController isKindOfClass:[UIViewController class]]) {
         BOOL ignore = [[self class] utilsArray:_ignoredViewControllers containsString:vcStr];
         if (ignore) { return;}
-        self.currentViewController = viewController;
+        [_viewControllers setObject:viewController forKey:@(_vcCnt++)];
         [self printPathWithTag:@"Appear   " controller:viewController];
         if(self.appearExtraHandler){
             self.appearExtraHandler(viewController);
         }
     }
     if ([viewController isKindOfClass:[UINavigationController class]]) {
-        self.currentNaviController = (UINavigationController *)viewController;
+        [_naviControllers setObject:viewController forKey:@(_naviCnt++)];
     }
     if(!_appearFlag){
         if (_flagControllers.count == 0 || [[self class] utilsArray:_flagControllers containsString:vcStr]) {
@@ -96,6 +100,19 @@
 }
 
 - (void)disappearController:(__weak UIViewController *)viewController{
+    if ([viewController isKindOfClass:[UIViewController class]]) {
+        id key = [self mapTable:_viewControllers keyOfObject:viewController];
+        if (key) {
+            [_viewControllers removeObjectForKey:key];
+        }
+    }
+    if ([viewController isKindOfClass:[UINavigationController class]]) {
+        id key = [self mapTable:_naviControllers keyOfObject:viewController];
+        if (key) {
+            [_naviControllers removeObjectForKey:key];
+        }
+    }
+
     [self printPathWithTag:@"Disappear" controller:viewController];
     if (self.disappearExtraHandler) {
         self.disappearExtraHandler(viewController);
@@ -126,15 +143,20 @@
     [VVManager sharedManager].flagControllers = flagControllers;
 }
 #pragma mark - 获取页面
+
+- (UIViewController *)currentViewController{
+    return [self lastObjectOfNumberKeyMapTable:_viewControllers lastCount:_vcCnt];
+}
+
 + (__weak UIViewController *)currentViewController{
     return [VVManager sharedManager].currentViewController;
 }
 
 - (__weak UINavigationController *)currentNaviController{
-    if (_currentViewController.navigationController) {
-        return _currentViewController.navigationController;
+    if (self.currentViewController.navigationController) {
+        return self.currentViewController.navigationController;
     }
-    return  _currentNaviController;
+    return [self lastObjectOfNumberKeyMapTable:_naviControllers lastCount:_naviCnt];
 }
 
 + (__weak UINavigationController *)currentNaviController{
@@ -378,6 +400,28 @@
     UIGraphicsEndImageContext();
     
     return image;
+}
+
+- (id)mapTable:(NSMapTable *)mapTable keyOfObject:(id)aObj{
+    NSArray *keys = mapTable.keyEnumerator.allObjects.copy;
+    id key = nil;
+    for (id tKey in keys) {
+        id tObj = [mapTable objectForKey:tKey];
+        if ([tObj isEqual:aObj]) {
+            key = tKey;
+            break;
+        }
+    }
+    return key;
+}
+
+- (id)lastObjectOfNumberKeyMapTable:(NSMapTable *)mapTable lastCount:(NSInteger)lastCount{
+    id obj = nil;
+    for (NSInteger i = lastCount; i >= 0; i --) {
+        obj = [mapTable objectForKey:@(i)];
+        if (obj) { break; }
+    }
+    return obj;
 }
 
 @end
