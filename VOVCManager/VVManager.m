@@ -73,9 +73,9 @@
 
 - (void)appearController:(__weak UIViewController *)viewController{
     NSString *vcStr = NSStringFromClass([viewController class]);
+    BOOL ignore = [[self class] utilsArray:_ignoredViewControllers containsString:vcStr];
+    if (ignore) { return;}
     if ([viewController isKindOfClass:[UIViewController class]]) {
-        BOOL ignore = [[self class] utilsArray:_ignoredViewControllers containsString:vcStr];
-        if (ignore) { return;}
         [_viewControllers setObject:viewController forKey:@(_vcCnt++)];
         [self printPathWithTag:@"Appear   " controller:viewController];
         if(self.appearExtraHandler){
@@ -100,6 +100,9 @@
 }
 
 - (void)disappearController:(__weak UIViewController *)viewController{
+    NSString *vcStr = NSStringFromClass([viewController class]);
+    BOOL ignore = [[self class] utilsArray:_ignoredViewControllers containsString:vcStr];
+    if (ignore) { return;}
     if ([viewController isKindOfClass:[UIViewController class]]) {
         id key = [self mapTable:_viewControllers keyOfObject:viewController];
         if (key) {
@@ -265,10 +268,12 @@
             destVC = [[UINavigationController alloc] initWithRootViewController:destVC];
         }
     }
-    if (hop.alpha < 1.0 && hop.alpha > 0.0) {
+    if (hop.alpha < 1.0 && hop.alpha >= 0.0) {
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-            destVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-            hop.controller.view.alpha = hop.alpha;
+            destVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            UIColor *color = hop.controller.view.backgroundColor;
+            color = [color colorWithAlphaComponent:hop.alpha];
+            hop.controller.view.backgroundColor = color;
         }
         else{
             destVC.modalPresentationStyle = UIModalPresentationCurrentContext;

@@ -1,4 +1,4 @@
-# VOVCManager(页面管理器) 2.0.7
+# VOVCManager(页面管理器) 2.0.8
 
 [![License Apache](http://img.shields.io/cocoapods/l/VOVCManager.svg?style=flat)](https://raw.githubusercontent.com/pozi119/VOVCManager/master/LICENSE)&nbsp;
 [![CocoaPods](http://img.shields.io/cocoapods/v/VOVCManager.svg?style=flat)](http://cocoapods.org/?q=VOVCManager)&nbsp;
@@ -18,7 +18,7 @@ pod 'VOVCManager'
   将`VOVCManager`文件夹所有源码拽入项目
 
 ##更新说明
-* V2.0.7 修复2.0.6改动导致获取当前页不准确的bug
+* V2.0.8 修复Present页面,设置alpha值的问题
 
 ##使用
 * 在需要的文件中导入头文件,通常在pch文件中导入,使用+load的方式初始化单例.
