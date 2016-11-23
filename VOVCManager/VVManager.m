@@ -16,10 +16,8 @@
 @property (nonatomic, strong) NSArray *ignoredViewControllers; ///< 排除记录的页面
 @property (nonatomic, strong) NSArray *flagControllers;        ///< 标记App已完成加载的页面
 @property (nonatomic, strong) NSMutableDictionary *urlRegList; ///< 页面url注册
-@property (nonatomic, strong) NSMapTable *viewControllers;     ///< 已加载的页面
-@property (nonatomic, strong) NSMapTable *naviControllers;     ///< 已加载的导航页
-@property (nonatomic, assign) NSInteger  vcCnt;                ///< 页面计数(仅用于NSMapTable的key)
-@property (nonatomic, assign) NSInteger  naviCnt;              ///< 导航页面计数(仅用于NSMapTable的key)
+@property (nonatomic, strong) NSMutableArray *viewControllers; ///< 已加载的页面
+@property (nonatomic, strong) NSMutableArray *naviControllers; ///< 已加载的导航页
 @property (nonatomic, copy  ) void (^appearExtraHandler)(UIViewController *);
 @property (nonatomic, copy  ) void (^disappearExtraHandler)(UIViewController *);
 @end
@@ -43,8 +41,8 @@
 
 - (void)commonInit{
     _urlRegList = @{}.mutableCopy;
-    _viewControllers = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsWeakMemory valueOptions:NSPointerFunctionsWeakMemory];
-    _naviControllers = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsWeakMemory valueOptions:NSPointerFunctionsWeakMemory];
+    _viewControllers = @[].mutableCopy;
+    _naviControllers = @[].mutableCopy;
     _ignoredViewControllers  = @[@"UIInputWindowController",
                                  @"UICompatibilityInputViewController",
                                  @"UIKeyboardCandidateGridCollectionViewController",
@@ -56,7 +54,7 @@
 }
 
 #pragma mark - UIViewController+VVRecord使用
-+ (void)addViewController:(__weak UIViewController *)viewController{
++ (void)addViewController:(UIViewController *)viewController{
     [[VVManager sharedManager] appearController:viewController];
 }
 
@@ -71,19 +69,19 @@
     return contain;
 }
 
-- (void)appearController:(__weak UIViewController *)viewController{
+- (void)appearController:(UIViewController *)viewController{
     NSString *vcStr = NSStringFromClass([viewController class]);
     BOOL ignore = [[self class] utilsArray:_ignoredViewControllers containsString:vcStr];
     if (ignore) { return;}
     if ([viewController isKindOfClass:[UIViewController class]]) {
-        [_viewControllers setObject:viewController forKey:@(_vcCnt++)];
+        [_viewControllers addObject:viewController];
         [self printPathWithTag:@"Appear   " controller:viewController];
         if(self.appearExtraHandler){
             self.appearExtraHandler(viewController);
         }
     }
     if ([viewController isKindOfClass:[UINavigationController class]]) {
-        [_naviControllers setObject:viewController forKey:@(_naviCnt++)];
+        [_naviControllers addObject:viewController];
     }
     if(!_appearFlag){
         if (_flagControllers.count == 0 || [[self class] utilsArray:_flagControllers containsString:vcStr]) {
@@ -95,25 +93,19 @@
     }
 }
 
-+ (void)removeViewController:(__weak UIViewController *)viewController{
++ (void)removeViewController:(UIViewController *)viewController{
     [[VVManager sharedManager] disappearController:viewController];
 }
 
-- (void)disappearController:(__weak UIViewController *)viewController{
+- (void)disappearController:(UIViewController *)viewController{
     NSString *vcStr = NSStringFromClass([viewController class]);
     BOOL ignore = [[self class] utilsArray:_ignoredViewControllers containsString:vcStr];
     if (ignore) { return;}
     if ([viewController isKindOfClass:[UIViewController class]]) {
-        id key = [self mapTable:_viewControllers keyOfObject:viewController];
-        if (key) {
-            [_viewControllers removeObjectForKey:key];
-        }
+        [_viewControllers removeObject:viewController];
     }
     if ([viewController isKindOfClass:[UINavigationController class]]) {
-        id key = [self mapTable:_naviControllers keyOfObject:viewController];
-        if (key) {
-            [_naviControllers removeObjectForKey:key];
-        }
+        [_naviControllers removeObject:viewController];
     }
 
     [self printPathWithTag:@"Disappear" controller:viewController];
@@ -127,18 +119,18 @@
     [VVManager sharedManager].prtDebugInfo = prtDebugInfo;
 }
 
-- (void)printPathWithTag:(NSString *)tag controller:(__weak UIViewController *)controller{
+- (void)printPathWithTag:(NSString *)tag controller:(UIViewController *)controller{
     if(self.prtDebugInfo){
-        NSLog(@"%@:--> %@", tag, controller.description);
+        NSLog(@"%@:-->(%@|%@) %@", tag,@(_naviControllers.count), @(_viewControllers.count), controller.description);
     }
 }
 
 #pragma mark - 设置页面跳转时的额外操作
-+ (void)setAppearExtraHandler:(void (^)(__weak UIViewController *))appearExtraHandler{
++ (void)setAppearExtraHandler:(void (^)(UIViewController *))appearExtraHandler{
     [VVManager sharedManager].appearExtraHandler = appearExtraHandler;
 }
 
-+ (void)setDisappearExtraHandler:(void (^)(__weak UIViewController *))disappearExtraHandler{
++ (void)setDisappearExtraHandler:(void (^)(UIViewController *))disappearExtraHandler{
     [VVManager sharedManager].disappearExtraHandler = disappearExtraHandler;
 }
 
@@ -148,25 +140,28 @@
 #pragma mark - 获取页面
 
 - (UIViewController *)currentViewController{
-    return [self lastObjectOfNumberKeyMapTable:_viewControllers lastCount:_vcCnt];
+    return _viewControllers.lastObject;
 }
 
-+ (__weak UIViewController *)currentViewController{
++ (UIViewController *)currentViewController{
     return [VVManager sharedManager].currentViewController;
 }
 
-- (__weak UINavigationController *)currentNaviController{
+- (UINavigationController *)currentNaviController{
+    if ([_viewControllers.lastObject isKindOfClass:[UINavigationController class]]) {
+        return _viewControllers.lastObject;
+    }
     if (self.currentViewController.navigationController) {
         return self.currentViewController.navigationController;
     }
-    return [self lastObjectOfNumberKeyMapTable:_naviControllers lastCount:_naviCnt];
+    return _naviControllers.lastObject;
 }
 
-+ (__weak UINavigationController *)currentNaviController{
++ (UINavigationController *)currentNaviController{
     return [VVManager sharedManager].currentNaviController;
 }
 
-- (__weak UIViewController *)rootViewController{
+- (UIViewController *)rootViewController{
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     UIViewController *controller = window.rootViewController;
     if ([controller isKindOfClass:[UINavigationController class]]) {
@@ -178,11 +173,11 @@
     return controller;
 }
 
-+ (__weak UIViewController *)rootViewController{
++ (UIViewController *)rootViewController{
     return [VVManager sharedManager].rootViewController;
 }
 
-- (__weak UINavigationController *)rootNavigationController{
+- (UINavigationController *)rootNavigationController{
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     UIViewController *controller = window.rootViewController;
     if ([controller isKindOfClass:[UINavigationController class]]) {
@@ -191,8 +186,13 @@
     return controller.navigationController;
 }
 
-+ (__weak UINavigationController *)rootNavigationController{
++ (UINavigationController *)rootNavigationController{
     return [VVManager sharedManager].rootNavigationController;
+}
+
++ (void)reset{
+    [[VVManager sharedManager].viewControllers removeAllObjects];
+    [[VVManager sharedManager].naviControllers removeAllObjects];
 }
 
 #pragma mark - 页面跳转
@@ -405,28 +405,6 @@
     UIGraphicsEndImageContext();
     
     return image;
-}
-
-- (id)mapTable:(NSMapTable *)mapTable keyOfObject:(id)aObj{
-    NSArray *keys = mapTable.keyEnumerator.allObjects.copy;
-    id key = nil;
-    for (id tKey in keys) {
-        id tObj = [mapTable objectForKey:tKey];
-        if ([tObj isEqual:aObj]) {
-            key = tKey;
-            break;
-        }
-    }
-    return key;
-}
-
-- (id)lastObjectOfNumberKeyMapTable:(NSMapTable *)mapTable lastCount:(NSInteger)lastCount{
-    id obj = nil;
-    for (NSInteger i = lastCount; i >= 0; i --) {
-        obj = [mapTable objectForKey:@(i)];
-        if (obj) { break; }
-    }
-    return obj;
 }
 
 @end

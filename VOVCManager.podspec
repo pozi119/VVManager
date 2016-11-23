@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "VOVCManager"
-  s.version      = "2.0.8"
+  s.version      = "2.0.9"
   s.summary      = "a ViewController manager"
   s.description  = <<-DESC
                     ** ViewController Manager **
