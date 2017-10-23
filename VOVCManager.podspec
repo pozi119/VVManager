@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "VOVCManager"
-  s.version      = "2.0.9"
+  s.version      = "2.0.10"
   s.summary      = "a ViewController manager"
   s.description  = <<-DESC
                     ** ViewController Manager **
@@ -14,4 +14,6 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "7.0"
   s.source       = { :git => "https://github.com/pozi119/VOVCManager.git", :tag => s.version.to_s }
   s.source_files  = "VOVCManager", "VOVCManager/*.{h,m}"
+  s.deprecated   = true
+  s.deprecated_in_favor_of = 'VVManager'
 end
