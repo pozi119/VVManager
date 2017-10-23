@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'VVManager_Example' do
+  pod 'VVManager', :path => '../'
+
+  target 'VVManager_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
