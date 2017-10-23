@@ -7,12 +7,14 @@
 //
 
 #import "VVAppDelegate.h"
+#import "VVManager.h"
 
 @implementation VVAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [self registerViewControllers];
     return YES;
 }
 
@@ -43,4 +45,10 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)registerViewControllers{
+    VVHop *hop1 = [VVHop hopWithMethod:VVHop_Pop aStoryboard:@"Main" aController:@"VVFavoriteMainController"];
+    [VVManager registerURLPath:@"favorite" forHop:hop1];
+    VVHop *hop2 = [VVHop hopWithMethod:VVHop_Pop aStoryboard:@"Main" aController:@"VVFavoriteDetailController"];
+    [VVManager registerURLPath:@"favoriteDetail" forHop:hop2];
+}
 @end

@@ -1,0 +1,22 @@
+{
+  "name": "VVManager",
+  "version": "2.1.0",
+  "summary": "A short description of VVManager.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/pozi119/VVManager",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "pozi119": "pozi119@163.com"
+  },
+  "source": {
+    "git": "https://github.com/pozi119/VVManager.git",
+    "tag": "2.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "VVManager/**/*"
+}
