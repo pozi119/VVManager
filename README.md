@@ -5,17 +5,20 @@
 [![License](https://img.shields.io/cocoapods/l/VVManager.svg?style=flat)](http://cocoapods.org/pods/VVManager)
 [![Platform](https://img.shields.io/cocoapods/p/VVManager.svg?style=flat)](http://cocoapods.org/pods/VVManager)
 
-##版本更新
+## 版本更新
+
 * 打印调试信息改为[VVManager setVerbose:YES].
 * 链式编程设置属性前缀改为vv_.
 * 添加两个通知:VVManagerViewDidAppearNotification,VVManagerViewDidDisappearNotification
 
 
-##功能说明
+## 功能说明
+
 * 跳转指定页面,只需要知道viewController的Class名,如果有storyboard,则需要指定storyboard名.
 * 支持URLScheme跳转指定页面.
 
-##安装
+## 安装
+
 * cocoapods导入: 
 ```ruby
 pod 'VVManager'
@@ -23,10 +26,8 @@ pod 'VVManager'
 * 手动导入:
   将`VOVCManager`文件夹所有源码拽入项目
 
-##更新说明
-* V2.0.9 仍使用NSMutableArray保存页面列表.添加reset方法重置列表,在某些特殊场景使用.
+## 使用
 
-##使用
 * 在需要的文件中导入头文件,通常在pch文件中导入,使用+load的方式初始化单例.
 ```objc
 #import "VVManager.h"
@@ -55,6 +56,8 @@ pod 'VVManager'
 ```objc
     [VVManager showPageWithHop:[VVHop hopWithMethod:VVHop_Push aStoryboard:@"Second" aController:@"VVTableViewController"]];
 ```
+
+## Author
 
 pozi119, pozi119@163.com
 
