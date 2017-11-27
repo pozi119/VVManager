@@ -1,4 +1,4 @@
-# VOVCManager(页面管理器) 2.1.0
+# VVManager(页面管理器) 2.1.0
 
 [![CI Status](http://img.shields.io/travis/pozi119/VVManager.svg?style=flat)](https://travis-ci.org/pozi119/VVManager)
 [![Version](https://img.shields.io/cocoapods/v/VVManager.svg?style=flat)](http://cocoapods.org/pods/VVManager)
