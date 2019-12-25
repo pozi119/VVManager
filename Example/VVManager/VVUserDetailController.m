@@ -34,6 +34,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (BOOL)becomeFirstResponder{
+    BOOL ret = [super becomeFirstResponder];
+    return ret;
+}
+
 - (IBAction)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];
 }

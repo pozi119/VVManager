@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7g1-s6-UFW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7g1-s6-UFW">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -87,7 +87,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Push" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5n-Pf-GL1">
-                                <rect key="frame" x="127.5" y="252.5" width="39" height="20.5"/>
+                                <rect key="frame" x="128" y="252" width="39" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -171,13 +171,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Present" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECN-Zo-yJF">
-                                <rect key="frame" x="221.5" y="252.5" width="59" height="20.5"/>
+                                <rect key="frame" x="222" y="252" width="59" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zy8-WC-zp0">
-                                <rect key="frame" x="117" y="281" width="60" height="30"/>
+                                <rect key="frame" x="117.5" y="280.5" width="60" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="5E8-YP-SPt"/>
                                     <constraint firstAttribute="width" constant="60" id="iSF-PP-RiN"/>
@@ -189,6 +189,16 @@
                                     <action selector="showDetail" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ZMc-bw-BB0"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Y2-AP-6gE">
+                                <rect key="frame" x="139" y="72" width="97" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Jjh-zq-edI"/>
+                                    <constraint firstAttribute="width" constant="97" id="rRV-bj-nyM"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -200,6 +210,7 @@
                             <constraint firstItem="gQs-3B-HVC" firstAttribute="top" secondItem="zy8-WC-zp0" secondAttribute="bottom" constant="8" id="Fwb-CB-ITg"/>
                             <constraint firstItem="gQs-3B-HVC" firstAttribute="centerX" secondItem="QE8-hu-LWJ" secondAttribute="centerX" id="HYz-j2-8X6"/>
                             <constraint firstItem="dc7-Hv-ZRR" firstAttribute="top" secondItem="QE8-hu-LWJ" secondAttribute="bottom" constant="8" id="Je0-BV-0xL"/>
+                            <constraint firstItem="2Y2-AP-6gE" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="K8b-Pt-DBs"/>
                             <constraint firstAttribute="centerX" secondItem="gQs-3B-HVC" secondAttribute="centerX" constant="40" id="KUk-zK-GW4"/>
                             <constraint firstItem="Ndx-pS-WK2" firstAttribute="top" secondItem="ALS-Ql-K6y" secondAttribute="bottom" constant="8" id="OWQ-sa-ZXk"/>
                             <constraint firstItem="aGp-hA-eNS" firstAttribute="leading" secondItem="gQs-3B-HVC" secondAttribute="trailing" constant="44" id="Oem-qx-0Vm"/>
@@ -208,6 +219,7 @@
                             <constraint firstItem="aGp-hA-eNS" firstAttribute="centerX" secondItem="SfT-ed-4t0" secondAttribute="centerX" id="SSn-Df-5oe"/>
                             <constraint firstItem="Uj5-pk-wZU" firstAttribute="centerX" secondItem="1QH-hB-8Bi" secondAttribute="centerX" id="SbD-nU-AZq"/>
                             <constraint firstItem="gQs-3B-HVC" firstAttribute="centerX" secondItem="dc7-Hv-ZRR" secondAttribute="centerX" id="Sga-PQ-BVC"/>
+                            <constraint firstItem="2Y2-AP-6gE" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="TOe-R6-wtN"/>
                             <constraint firstItem="aGp-hA-eNS" firstAttribute="centerY" secondItem="gQs-3B-HVC" secondAttribute="centerY" id="Y0n-Pz-M3Q"/>
                             <constraint firstAttribute="centerY" secondItem="gQs-3B-HVC" secondAttribute="centerY" id="ZKV-yU-E6J"/>
                             <constraint firstItem="aGp-hA-eNS" firstAttribute="centerX" secondItem="NIQ-vI-E5B" secondAttribute="centerX" id="f4P-XT-wPH"/>
@@ -425,6 +437,7 @@
                     <tabBarItem key="tabBarItem" systemItem="favorites" id="9gY-Ng-xqz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="9bv-Bh-Zuu">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -480,6 +493,7 @@
                     <tabBarItem key="tabBarItem" systemItem="recents" id="hhp-k8-Mgj"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="CA0-Sw-Mzx">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -535,6 +549,7 @@
                     <tabBarItem key="tabBarItem" systemItem="bookmarks" id="VrA-kS-8Uk"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qbu-rb-e9m">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -590,6 +605,7 @@
                     <tabBarItem key="tabBarItem" systemItem="contacts" id="ucd-Pc-Dkg"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZKn-Dt-e8C">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -608,6 +624,7 @@
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="0OB-P3-aMo">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
